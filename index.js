@@ -16,7 +16,7 @@ class ProductManager {
         product.stock = stock;
         product.id = this.#id++
 
-        title && description && price && thumbnail && code && stock && (!this.products.some((producto)=> code === producto.code)) ? this.products.push(product) : this.products.push(`Falta agregar datos y/o el codigo agregado ya existe`)
+        title && description && price && thumbnail && code && stock && (!this.products.some((producto)=> code === producto.code)) ? this.products.push(product) : console.error(`Falta agregar datos y/o el codigo agregado ya existe`)
     }
 
     getProducts () { return this.products }
@@ -24,6 +24,8 @@ class ProductManager {
     getProductById(id){
         const searchProduct = this.products.find ((product) => id === product.id)
 
-        return (searchProduct ? searchProduct : 'El producto no existe')
+        return (searchProduct ? searchProduct : console.error('El producto no existe'))
     }
 } 
+
+
