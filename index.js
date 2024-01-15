@@ -5,6 +5,12 @@ class ProductManager {
 
     constructor(){
         this.products = []
+        this.path = 'Productos.json'
+        this.iniciarPath()
+    }
+
+    async iniciarPath(){
+        await fs.promises.writeFile(this.path, JSON.stringify(this.products))
     }
     
     async addProduct(title, description,price,thumbnail,code,stock){
@@ -48,16 +54,19 @@ class ProductManager {
         const productParsed = JSON.parse(await fs.promises.readFile('Productos.json', 'utf-8'))
         const searchProduct = productParsed.find ((product) => id === product.id)
         searchProduct[propietyToChange] = value
-        fs.writeFileSync('Productos.json', JSON.stringify(productParsed))
 
+        return await fs.promises.writeFile('Productos.json', JSON.stringify(productParsed))
     }
+
+    async deleteProduct (id){
+        const productParsed = JSON.parse(await fs.promises.readFile('Productos.json', 'utf-8'))
+        const productsFiltered = productParsed.filter ((product) => id !== product.id)
+        console.log(productsFiltered)
+        
+        return await fs.promises.writeFile('Productos.json', JSON.stringify(productsFiltered,null))
+    
+    }
+
 }
-
-const nuevoProducto = new ProductManager()
-
-nuevoProducto.addProduct('titulo', 'descripcion', 500, 'sin imagen', 'abc123', 10)
-nuevoProducto.addProduct('tituslo', 'descripcion', 500, 'sin imagen', 'abc12d3', 10)
-nuevoProducto.addProduct('titulo', 'descripcion', 500, 'sin imagen', 'abc12ds3', 10)
-
 
 
