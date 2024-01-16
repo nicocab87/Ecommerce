@@ -3,9 +3,9 @@ const fs = require ('fs')
 class ProductManager {
     #id=1;
 
-    constructor(){
+    constructor(path){
         this.products = []
-        this.path = 'Productos.json'
+        this.path = path
         this.iniciarPath()
     }
 
@@ -28,7 +28,7 @@ class ProductManager {
 
         if (validation){
             this.products.push(product)
-            await fs.promises.writeFile('Productos.json', JSON.stringify(this.products))
+            await fs.promises.writeFile(this.path, JSON.stringify(this.products))
             
         }else{
             console.error(`Falta agregar datos y/o el codigo agregado ya existe`)
@@ -36,34 +36,34 @@ class ProductManager {
     }
 
     async getProducts () { 
-        const contenido = await fs.promises.readFile('Productos.json', 'utf-8')
+        const contenido = await fs.promises.readFile(this.path, 'utf-8')
         const productos = JSON.parse(contenido)
 
-        return console.log(productos)
+        return productos
     }
 
     async getProductById(id){
-        const contenido = await fs.promises.readFile('Productos.json', 'utf-8')
+        const contenido = await fs.promises.readFile(this.path, 'utf-8')
         const productos = JSON.parse(contenido)
         const searchProduct = productos.find ((product) => id === product.id)
         
-        return (searchProduct ? console.log(searchProduct) : console.error('El producto no existe'))
+        return (searchProduct ? searchProduct : console.error('El producto no existe'))
     }
 
     async updateProduct(id, propietyToChange, value){
-        const productParsed = JSON.parse(await fs.promises.readFile('Productos.json', 'utf-8'))
+        const productParsed = JSON.parse(await fs.promises.readFile(this.path, 'utf-8'))
         const searchProduct = productParsed.find ((product) => id === product.id)
         searchProduct[propietyToChange] = value
 
-        return await fs.promises.writeFile('Productos.json', JSON.stringify(productParsed))
+        return await fs.promises.writeFile(this.path, JSON.stringify(productParsed))
     }
 
     async deleteProduct (id){
-        const productParsed = JSON.parse(await fs.promises.readFile('Productos.json', 'utf-8'))
+        const productParsed = JSON.parse(await fs.promises.readFile(this.path, 'utf-8'))
         const productsFiltered = productParsed.filter ((product) => id !== product.id)
         console.log(productsFiltered)
         
-        return await fs.promises.writeFile('Productos.json', JSON.stringify(productsFiltered,null))
+        return await fs.promises.writeFile(this.path, JSON.stringify(productsFiltered,null))
     
     }
 
