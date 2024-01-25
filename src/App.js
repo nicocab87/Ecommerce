@@ -3,7 +3,7 @@ const ProductManager = require ("./ProductManager");
 
 // Creación de productos
 
-const nuevoProducto = new ProductManager (`/Productos.JSON`)
+const nuevoProducto = new ProductManager (`./Productos.JSON`)
 
 nuevoProducto.addProduct('TV', 'Televisor LED 4K', 50000, 'tv.jpg', 'TV001', 10);
 nuevoProducto.addProduct('Laptop', 'Laptop de alta gama', 80000, 'laptop.jpg', 'LP001', 15);
