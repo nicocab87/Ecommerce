@@ -39,7 +39,13 @@ server.get(`/products/:pid`, async (req, res) => {
     const data = await nuevoProducto.getProductById(parseInt(productId))
     const error = `ERROR 404, el producto solicitado no existe`
 
-    res.send(data ? data : error)
+    if(!data){
+        res.status(404)
+        console.log(res.status)
+        return res.send(error)
+    }
+    
+    res.send(data)
 })
 
 server.listen(8080,()=>console.log(`Se ha levantado el servidor 8080`))
