@@ -56,8 +56,9 @@ class ProductManager {
         const productParsed = JSON.parse(await fs.promises.readFile(this.path, 'utf-8'))
         const searchProduct = productParsed.find ((product) => id === product.id)
         searchProduct[propietyToChange] = value
+        await fs.promises.writeFile(this.path, JSON.stringify(productParsed))
 
-        return await fs.promises.writeFile(this.path, JSON.stringify(productParsed))
+        return productParsed
     }
 
     async deleteProduct (id){
@@ -65,7 +66,9 @@ class ProductManager {
         const productsFiltered = productParsed.filter ((product) => id !== product.id)
         console.log(productsFiltered)
         
-        return await fs.promises.writeFile(this.path, JSON.stringify(productsFiltered,null))
+        await fs.promises.writeFile(this.path, JSON.stringify(productsFiltered,null))
+
+        return productsFiltered
     
     }
 
