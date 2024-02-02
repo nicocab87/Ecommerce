@@ -40,17 +40,19 @@ class CartManager {
         const productData = await nuevoProducto.getProductById(idProduct)
         const cartData = await fs.promises.readFile(this.path, 'utf-8')
         const cart = JSON.parse(cartData)
-        console.log(cart)
-        console.log(productData)
+        const cartToUpdate = cart.find(cartItem => cartItem.id === idCart);
 
+        if (cartToUpdate && productData) {
 
-        if(cart && productData){
-            cart[idCart-1].product.push(productData)
-            await fs.promises.writeFile(this.path, JSON.stringify(this.mainCart))
-            return  cart
-        }else{
-            console.error(`Algun dato ingresado es incorrecto`);
+            const existingProduct = cartToUpdate.product.find(product => product.id === idProduct);
+    
+            existingProduct ? existingProduct.quantity += 1 : cartToUpdate.product.push({ id: idProduct, quantity: 1 });
+            
+            await fs.promises.writeFile(this.path, JSON.stringify(cart));
+            
+            return cart;
         }
+
     }
 }
 
