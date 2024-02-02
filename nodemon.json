@@ -1,4 +1,6 @@
 {
-    "ignore": ["Productos.JSON"]
+    "ignore": ["Productos.JSON", "Cart.JSON"]
+    
 }
+
   

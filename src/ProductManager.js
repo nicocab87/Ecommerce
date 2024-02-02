@@ -76,15 +76,5 @@ class ProductManager {
 
 const nuevoProducto = new ProductManager (`./Productos.JSON`)
 
-/* nuevoProducto.addProduct(['TV', 'Tecnologia','Televisor LED 4K', 50000, 'tv.jpg', 'TV001', 10]);
-nuevoProducto.addProduct(['Laptop', 'Tecnologia','Laptop de alta gama', 80000, 'laptop.jpg', 'LP001', 15]);
-nuevoProducto.addProduct(['Teléfono', 'Tecnologia','Smartphone con cámara dual', 15000, 'phone.jpg', 'PH001', 20]);
-nuevoProducto.addProduct(['Refrigerador', 'Tecnologia','Refrigerador de dos puertas', 30000, 'fridge.jpg', 'RF001', 5]);
-nuevoProducto.addProduct(['Micrófono', 'Tecnologia','Micrófono USB de estudio', 1000, 'mic.jpg', 'MC001', 30]);
-nuevoProducto.addProduct(['Cámara', 'Tecnologia','Cámara DSLR de 24MP', 40000, 'camera.jpg', 'CM001', 8]);
-nuevoProducto.addProduct(['Auriculares', 'Tecnologia','Auriculares inalámbricos', 2000, 'headphones.jpg', 'HD001', 25]);
-nuevoProducto.addProduct(['Impresora', 'Tecnologia','Impresora láser a color', 6000, 'printer.jpg', 'PR001', 12]);
-nuevoProducto.addProduct(['Tablet', 'Tecnologia','Tableta con pantalla táctil', 12000, 'tablet.jpg', 'TB001', 18]);
-nuevoProducto.addProduct(['Altavoces', 'Tecnologia','Altavoces Bluetooth', 3000, 'speakers.jpg', 'SP001', 22]);
- */
+
 module.exports = nuevoProducto
