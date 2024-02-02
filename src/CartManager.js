@@ -11,8 +11,12 @@ class CartManager {
     }
 
     async iniciarPath(){
-        await fs.promises.writeFile(this.path, JSON.stringify(this.mainCart))
-    }
+            try {
+                await fs.access(this.path);
+            } catch (error) {
+                await fs.writeFile(this.path, JSON.stringify(this.mainCart), ()=>{});
+            }
+        }
 
     async addCart(){
         const cart = {}

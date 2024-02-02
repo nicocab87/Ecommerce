@@ -10,10 +10,16 @@ class ProductManager {
     }
 
     async iniciarPath(){
-        await fs.promises.writeFile(this.path, JSON.stringify(this.products))
-    }
+            try {
+                await fs.promises.access(this.path);
+
+            } catch (error) {
+                await fs.promises.writeFile(this.path, JSON.stringify(this.products));
+
+            }
+        }
     
-    async addProduct([title, category ,description, price,code,stock]){
+    async addProduct(title, category ,description, price,code,stock){
         let product = {}
 
         product.title = title;
@@ -27,10 +33,13 @@ class ProductManager {
         product.id = this.#id++
 
         const validation = title && description && price && code && stock && (!this.products.some((producto)=> code === producto.code))
+    
 
         if (validation){
             this.products.push(product)
             await fs.promises.writeFile(this.path, JSON.stringify(this.products))
+
+            return product
             
         }else{
             console.error(`Falta agregar datos y/o el codigo agregado ya existe`)
@@ -52,17 +61,17 @@ class ProductManager {
         return (searchProduct ? searchProduct : console.error('El producto no existe'))
     }
 
-    async updateProduct(id, propietyToChange, value){
-        const productParsed = JSON.parse(await fs.promises.readFile(this.path, 'utf-8'))
+    updateProduct(id, propietyToChange, value){
+        const productParsed = JSON.parse(fs.readFileSync(this.path, 'utf-8'))
         const searchProduct = productParsed.find ((product) => id === product.id)
         searchProduct[propietyToChange] = value
-        await fs.promises.writeFile(this.path, JSON.stringify(productParsed))
+        fs.writeFileSync(this.path, JSON.stringify(productParsed))
 
         return productParsed
     }
 
     async deleteProduct (id){
-        const productParsed = JSON.parse(await fs.promises.readFile(this.path, 'utf-8'))
+        const productParsed = JSON.parse(await fs.readFileSync(this.path, 'utf-8'))
         const productsFiltered = productParsed.filter ((product) => id !== product.id)
         console.log(productsFiltered)
         

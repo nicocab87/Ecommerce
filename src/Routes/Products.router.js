@@ -16,11 +16,18 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const product = req.body
-    const productValue = Object.values(product)
+    const { title, category, description, price, code, stock } = product;
     
-    await nuevoProducto.addProduct(productValue);
+    const data = await nuevoProducto.addProduct( title, category, description, price, code, stock);
 
+   if(data){
     res.send({status:`succes`})
+    } else{
+        res.status(400)
+        res.send(`Error, datos incompletos o código repetido`)
+    }
+
+    
 })
 
 router.get(`/:pid`, async (req, res) => {
@@ -42,22 +49,17 @@ router.get(`/:pid`, async (req, res) => {
 router.put(`/:pid`, async(req, res) => {
     const productId = req.params.pid
     const productToUpdate = req.body
-    const productKey = Object.keys(productToUpdate)
-    const productValue = Object.values(productToUpdate)
-    const key = productKey.join("")
-    const value = productValue.join("")
-
-
+    const productArray = Object.entries(productToUpdate)
+  
     if(!isNaN(productId)){
-        const data = await nuevoProducto.updateProduct(parseInt(productId), key, value)
+
+        const data = productArray.map(async (arr) => {
+            nuevoProducto.updateProduct(parseInt(productId), arr[0], arr[1])
+            console.log(`idproduct ${productId}, key ${arr[0]}, value ${arr[1]}`)
+        })
         const error = `ERROR 404, el producto no existe o la propiedad a modificar es inexistente`
-        
-        if(!data){
-            res.status(404)
-            return res.send(error)
-        }
-    
-        res.send({status:`succes`})
+
+        data ? res.send({status:`succes`}) : res.status(400).send(error)
     }
 })
 
