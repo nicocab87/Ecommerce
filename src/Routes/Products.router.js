@@ -11,7 +11,10 @@ router.get('/', async (req, res) => {
 
     const productsFiltered = data.filter((products)=>products.id <= productsLimit)
 
-    res.send(!productsLimit ? data : productsFiltered)
+   console.log(productsFiltered)
+
+
+    res.render('home', (!productsLimit ? {data} : {productsFiltered}))
 })
 
 router.post('/', async (req, res) => {
@@ -19,6 +22,8 @@ router.post('/', async (req, res) => {
     const { title, category, description, price, code, stock } = product;
     
     const data = await nuevoProducto.addProduct( title, category, description, price, code, stock);
+
+    
 
    if(data){
     res.send({status:`succes`})

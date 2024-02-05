@@ -36,6 +36,9 @@ class ProductManager {
     
 
         if (validation){
+            const data = await fs.promises.readFile(this.path, 'utf-8')
+            const dataParsed = JSON.parse(data)
+            this.products = [...dataParsed]
             this.products.push(product)
             await fs.promises.writeFile(this.path, JSON.stringify(this.products))
 

@@ -1,0 +1,34 @@
+<div>
+    <p>Hola {{name}}</p>
+</div>
+
+<div>
+    {{#if data}}
+        {{#each data}}
+
+            <p>Titulo: {{this.title}}</p>
+            <p>Categoria: {{this.category}}</p>
+            <p>Descripción: {{this.description}}</p>
+            <p>{{this.thumbnail}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <p>Precio: ${{this.price}}</p>
+            <p>{{this.id}}</p>
+
+        {{/each}}
+    {{/if}}
+
+    {{#if productsFiltered}}
+        {{#each productsFiltered}}
+        
+            <p>Titulo: {{this.title}}</p>
+            <p>Categoria: {{this.category}}</p>
+            <p>Descripción: {{this.description}}</p>
+            <p>{{this.thumbnail}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <p>Precio: ${{this.price}}</p>
+
+        {{/each}}
+    {{/if}}
+
+    
+</div>
