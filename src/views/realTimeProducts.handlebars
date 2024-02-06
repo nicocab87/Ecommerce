@@ -1,0 +1,64 @@
+<main>
+    <div>
+        <form action="/api/products" method="POST" id="createProductForm">
+            <div>
+                <label for="title">Titulo</label>
+                <input type="text" name="title"/>
+            </div>
+            <div>
+                <label for="category">category</label>
+                <input type="text" name="category"/>
+            </div>
+            <div>
+                <label for="description">description</label>
+                <input type="text" name="description"/>
+            </div>
+            <div>
+                <label for="price">price</label>
+                <input type="text" name="price"/>
+            </div>
+            <div>
+                <label for="code">code</label>
+                <input type="text" name="code"/>
+            </div>
+            <div>
+                <label for="stock">stock</label>
+                <input type="text" name="stock"/>
+            </div>
+            <button id="createProductButton" type="submit">Crear producto</button>
+        </form>
+    </div>
+
+    <div>
+        {{#if data}}
+            {{#each data}}
+
+                <p>Titulo: {{this.title}}</p>
+                <p>Categoria: {{this.category}}</p>
+                <p>Descripción: {{this.description}}</p>
+                <p>{{this.thumbnail}}</p>
+                <p>Stock: {{this.stock}}</p>
+                <p>Precio: ${{this.price}}</p>
+                <p>{{this.id}}</p>
+
+            {{/each}}
+        {{/if}}
+
+        {{#if productsFiltered}}
+            {{#each productsFiltered}}
+
+                <p>Titulo: {{this.title}}</p>
+                <p>Categoria: {{this.category}}</p>
+                <p>Descripción: {{this.description}}</p>
+                <p>{{this.thumbnail}}</p>
+                <p>Stock: {{this.stock}}</p>
+                <p>Precio: ${{this.price}}</p>
+
+            {{/each}}
+        {{/if}}
+
+    </div>
+</main>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>

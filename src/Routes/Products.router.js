@@ -1,6 +1,7 @@
 const {Router} = require(`express`);
 const nuevoProducto = require ("../ProductManager");
 
+
 const router = Router();
 
 
@@ -11,8 +12,7 @@ router.get('/', async (req, res) => {
 
     const productsFiltered = data.filter((products)=>products.id <= productsLimit)
 
-   console.log(productsFiltered)
-
+    console.log(productsFiltered)
 
     res.render('home', (!productsLimit ? {data} : {productsFiltered}))
 })
@@ -27,6 +27,7 @@ router.post('/', async (req, res) => {
 
    if(data){
     res.send({status:`succes`})
+    
     } else{
         res.status(400)
         res.send(`Error, datos incompletos o código repetido`)
