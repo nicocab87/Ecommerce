@@ -32,10 +32,12 @@ class ProductManager {
         product.status = true;
         product.id = this.#id++
 
-        while((!this.products.some((producto)=> this.#id === producto.id))){
-            this.#id++
-        }
 
+
+        while (this.products.some(producto => producto.id === product.id)) {
+            product.id = this.#id++;
+        }
+    
         const validation = title && description && price && code && stock && (!this.products.some((producto)=> code === producto.code))
     
 
