@@ -1,6 +1,6 @@
 <main>
     <div>
-        <form action="/api/products" method="POST" id="createProductForm">
+        <form action="/api/products"  id="createProductForm">
             <div>
                 <label for="title">Titulo</label>
                 <input type="text" name="title"/>
@@ -29,7 +29,7 @@
         </form>
     </div>
 
-    <div>
+    <div id="productsContainer">
         {{#if data}}
             {{#each data}}
 

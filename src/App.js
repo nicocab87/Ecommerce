@@ -4,6 +4,7 @@ const {Server} = require ("socket.io");
 const productsRouter = require ("./Routes/Products.router");
 const cartRouter = require("./Routes/Carts.router");
 const realTimeRouter = require ("./Routes/RealTimeProducts.router")
+const nuevoProducto = require ("./ProductManager");
 
 
 const app = express();
@@ -23,25 +24,27 @@ app.use(`/api/carts`, cartRouter);
 app.use(`/realtimeproducts`, realTimeRouter)
 
 
-
-
-
 const server = app.listen(port,()=>console.log(`Se ha levantado el servidor 8080`))
 
 const io = new Server (server);
 
 io.on('connection', (socket)=>{
-    console.log(`connected` + socket.id)
+    console.log(`Conectado: ${socket.id}`);
 
     socket.on('disconnect', ()=>{
-        console.log(`${socket.id} disconnected`)
-    })
+        console.log(`${socket.id} desconectado`);
+    });
 
-    socket.on('message', (message)=>{
-        console.log(message )
-    })
-})
+    socket.on('addProduct', async (newProductData)=>{
+        const { title, category, description, price, code, stock } = newProductData;
+    
+        await nuevoProducto.addProduct( title, category, description, price, code, stock);
 
+        const data = await nuevoProducto.getProducts()
+
+        io.emit('updateProduct', data);
+    });
+});
 
 
 

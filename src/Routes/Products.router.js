@@ -4,7 +4,6 @@ const nuevoProducto = require ("../ProductManager");
 
 const router = Router();
 
-
 router.get('/', async (req, res) => {
 
     const data = await nuevoProducto.getProducts();

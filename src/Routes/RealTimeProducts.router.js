@@ -20,14 +20,12 @@ router.post('/', async (req, res) => {
     const data = await nuevoProducto.addProduct( title, category, description, price, code, stock);
 
    if(data){
-    io.emit()
     res.send({status:`succes`})
+
     } else{
         res.status(400)
         res.send(`Error, datos incompletos o código repetido`)
     }
-
-    
 })
 
 module.exports = router
