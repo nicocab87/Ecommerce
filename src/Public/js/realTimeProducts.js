@@ -22,8 +22,6 @@ deleteButton.forEach(button => {
     button.addEventListener('click', async (event) => {
         const idProductToDelete = parseInt(event.target.id.split('_')[1])
         socket.emit('deleteProduct',idProductToDelete);
-        console.log(typeof(idProductToDelete))
-
     })
 });
 
@@ -38,10 +36,10 @@ socket.on('updateProduct', (data) => {
             <p>Descripción: ${product.description}</p>
             <p>${product.thumbnail}</p>
             <p>Stock: ${product.stock}</p>
-            <p>Precio: ${product.price}</p>
-            <p>${product.id}</p>
+            <p>Precio:$ ${product.price}</p>
             <button id="deleteButton_${this.id}" class="deleteProduct">Borrar</button>
         `;
+        productDiv.classList("card")
         productsConatiner.appendChild(productDiv); 
     });
 });

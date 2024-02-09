@@ -1,45 +1,44 @@
-<main>
+<main class="container">
     <div>
         <form action="/api/products"  id="createProductForm">
             <div>
-                <label for="title">Titulo</label>
+                <label for="title" class="label">Titulo</label>
                 <input type="text" name="title"/>
             </div>
             <div>
-                <label for="category">category</label>
+                <label for="category" class="label">category</label>
                 <input type="text" name="category"/>
             </div>
             <div>
-                <label for="description">description</label>
+                <label for="description" class="label">description</label>
                 <input type="text" name="description"/>
             </div>
             <div>
-                <label for="price">price</label>
+                <label for="price" class="label">price</label>
                 <input type="text" name="price"/>
             </div>
             <div>
-                <label for="code">code</label>
+                <label for="code" class="label">code</label>
                 <input type="text" name="code"/>
             </div>
             <div>
-                <label for="stock">stock</label>
+                <label for="stock" class="label">stock</label>
                 <input type="text" name="stock"/>
             </div>
-            <button id="createProductButton" type="submit">Crear producto</button>
+            <button id="createProductButton" type="submit" class="button">Crear producto</button>
         </form>
     </div>
 
     <div id="productsContainer">
 
         {{#each dataToRender}}
-           <div>
+           <div class="card">
                <p>Titulo: {{this.title}}</p>
                <p>Categoria: {{this.category}}</p>
                <p>Descripción: {{this.description}}</p>
                <p>{{this.thumbnail}}</p>
                <p>Stock: {{this.stock}}</p>
                <p>Precio: ${{this.price}}</p>
-               <p>{{this.id}}</p>
                <button id="deleteButton_{{this.id}}" class="deleteProduct">Borrar</button>
            </div>
         {{/each}}
