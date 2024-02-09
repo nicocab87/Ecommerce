@@ -44,6 +44,14 @@ io.on('connection', (socket)=>{
 
         io.emit('updateProduct', data);
     });
+
+    socket.on('deleteProduct', async (idProductToDelete) => {
+        await nuevoProducto.deleteProduct(idProductToDelete)
+
+        const data = await nuevoProducto.getProducts()
+
+        io.emit('updateProduct', data)
+    })
 });
 
 

@@ -30,32 +30,19 @@
     </div>
 
     <div id="productsContainer">
-        {{#if data}}
-            {{#each data}}
 
-                <p>Titulo: {{this.title}}</p>
-                <p>Categoria: {{this.category}}</p>
-                <p>Descripción: {{this.description}}</p>
-                <p>{{this.thumbnail}}</p>
-                <p>Stock: {{this.stock}}</p>
-                <p>Precio: ${{this.price}}</p>
-                <p>{{this.id}}</p>
-
-            {{/each}}
-        {{/if}}
-
-        {{#if productsFiltered}}
-            {{#each productsFiltered}}
-
-                <p>Titulo: {{this.title}}</p>
-                <p>Categoria: {{this.category}}</p>
-                <p>Descripción: {{this.description}}</p>
-                <p>{{this.thumbnail}}</p>
-                <p>Stock: {{this.stock}}</p>
-                <p>Precio: ${{this.price}}</p>
-
-            {{/each}}
-        {{/if}}
+        {{#each dataToRender}}
+           <div>
+               <p>Titulo: {{this.title}}</p>
+               <p>Categoria: {{this.category}}</p>
+               <p>Descripción: {{this.description}}</p>
+               <p>{{this.thumbnail}}</p>
+               <p>Stock: {{this.stock}}</p>
+               <p>Precio: ${{this.price}}</p>
+               <p>{{this.id}}</p>
+               <button id="deleteButton_{{this.id}}" class="deleteProduct">Borrar</button>
+           </div>
+        {{/each}}
 
     </div>
 </main>

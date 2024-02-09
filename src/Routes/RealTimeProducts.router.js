@@ -10,7 +10,9 @@ router.get('/', async (req, res) => {
 
     const productsFiltered = data.filter((products)=>products.id <= productsLimit)
 
-    res.render('realTimeProducts', (!productsLimit ? {data} : {productsFiltered}))
+    const dataToRender = (!productsLimit ? data : productsFiltered)
+
+    res.render('realTimeProducts', {dataToRender} )
 })
 
 router.post('/', async (req, res) => {
