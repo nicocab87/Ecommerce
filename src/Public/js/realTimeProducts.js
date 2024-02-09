@@ -2,7 +2,7 @@ const socket = io();
 
 const createProductForm = document.getElementById("createProductForm");
 const productsConatiner = document.getElementById("productsContainer")
-const deleteButton = document.querySelectorAll('.deleteProduct')
+let deleteButton = document.querySelectorAll('.deleteProduct')
 
 createProductForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -37,9 +37,17 @@ socket.on('updateProduct', (data) => {
             <p>${product.thumbnail}</p>
             <p>Stock: ${product.stock}</p>
             <p>Precio:$ ${product.price}</p>
-            <button id="deleteButton_${this.id}" class="deleteProduct">Borrar</button>
+            <button id='deleteButton_${product.id}' class="deleteProduct"> Borrar </button>
         `;
-        productDiv.classList("card")
+        productDiv.classList.add("box")
         productsConatiner.appendChild(productDiv); 
     });
-});
+
+    deleteButton = document.querySelectorAll('.deleteProduct')
+    deleteButton.forEach(button => {
+        button.addEventListener('click', async (event) => {
+            const idProductToDelete = parseInt(event.target.id.split('_')[1])
+            socket.emit('deleteProduct',idProductToDelete);
+        })
+    })
+})
