@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main {
+  background-color: #415A77;
+}
+
+.navBar {
+  border: 2px solid black;
+  background-color: #1B263B;
+}
+.navBar .ul {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem;
+  gap: 1rem;
+}
+.navBar .ul .li {
+  list-style-type: none;
+  font-size: 1rem;
+}
+.navBar .ul .li a {
+  color: black;
+  text-decoration: none;
+}
+.navBar .ul .li:hover {
+  color: wheat;
+}
+
+.productsConatiner {
+  display: inline-block;
+}
+.productsConatiner .product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #0D1B2A;
+}
+.productsConatiner .product h1 {
+  font-size: 25px;
+}
+.productsConatiner .product p {
+  font-size: 15px;
+}/*# sourceMappingURL=main.css.map */

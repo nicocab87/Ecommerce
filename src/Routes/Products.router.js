@@ -12,8 +12,12 @@ router.get('/', async (req, res) => {
     const productsFiltered = data.filter((products)=>products.id <= productsLimit)
 
     const dataToRender = (!productsLimit ? data : productsFiltered)
-
-    res.render('home', {dataToRender} )
+    try {
+        res.render('home', {dataToRender} )
+    } catch (error) {
+        res.status(440).send(error)
+    }
+    
 })
 
 router.post('/', async (req, res) => {
@@ -44,7 +48,7 @@ router.get(`/:pid`, async (req, res) => {
     
         if(!data){
             res.status(404)
-            return res.send(error)
+            res.send(error)
         }
     
         res.send(data)

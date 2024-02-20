@@ -4,9 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{pageTitle}}</title>
+    <link rel="stylesheet" href="style/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
-    {{{body}}}
+    <header>
+        <nav class="navBar">
+            <ul class="ul">
+                <li class="navItems"><a href="#"> Ecomerse </a></li>
+                <li class="navItems"><a href="#"> Inicio </a></li>
+                <li class="navItems"><a href="#"> Nuestros Productos </a></li>
+                <li class="navItems"><a href="#"> Quienes Somos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        {{{body}}}
+    </main>
+
+    <footer></footer>
 </body>
 </html>

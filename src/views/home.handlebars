@@ -1,19 +1,17 @@
-<main>
-    <div class="content">
-        <h1>Bienvenidos!!</h1>
-        <h3>Esto son nuestros productos:</h3>
-    </div>
-
-    <div id="productsContainer">
-        {{#each dataToRender}}
-           <div class="box">
-               <p>Titulo: {{this.title}}</p>
-               <p>Categoria: {{this.category}}</p>
-               <p>Descripción: {{this.description}}</p>
-               <p>{{this.thumbnail}}</p>
-               <p>Stock: {{this.stock}}</p>
-               <p>Precio: ${{this.price}}</p>
-           </div>
-        {{/each}}
-    </div>
-</main>
+<div class="content">
+    <h1>Bienvenidos!!</h1>
+    <h3>Esto son nuestros productos:</h3>
+</div>
+<div id="productsContainer" class="productsConatiner">
+    {{#each dataToRender}}
+       <div class="box product">
+           <h1>Titulo:</h1> <p>{{this.title}}</p>
+           <h1>Categoria:</h1> <p>{{this.category}}</p>
+           <h1>Descripción:</h1> <p>{{this.description}}</p>
+           <p>{{this.thumbnail}}</p>
+           <h1>Stock:</h1> {{this.stock}}</p>
+           <h1>Precio:</h1> ${{this.price}}</p>
+       </div>
+    {{/each}}
+</div>
+ 

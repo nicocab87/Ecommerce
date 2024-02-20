@@ -1,0 +1,19 @@
+.productsConatiner{
+    display: inline-block;
+
+    .product{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: $mainBackground;
+        
+        
+        h1{
+            font-size: 25px;
+        }
+        p{
+            font-size: 15px;
+        }
+    }
+}
+
