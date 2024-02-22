@@ -1,5 +1,5 @@
 const {Router} = require(`express`);
-const nuevoProducto = require ("../ProductManager");
+const nuevoProducto = require ("../dao/fileManagers/ProductManager");
 
 
 const router = Router();
@@ -28,12 +28,12 @@ router.post('/', async (req, res) => {
 
     
 
-   if(data){
-    res.send({status:`succes`})
-    
-    } else{
-        res.status(400)
-        res.send(`Error, datos incompletos o código repetido`)
+    if(data){
+        res.send({status:`succes`})
+        
+        } else{
+            res.status(400)
+            res.send(`Error, datos incompletos o código repetido`)
     }
 
     

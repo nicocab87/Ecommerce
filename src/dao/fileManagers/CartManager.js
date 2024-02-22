@@ -23,7 +23,7 @@ class CartManager {
         cart.id = this.id++
         cart.product = []
 
-       this.mainCart.push(cart)
+    this.mainCart.push(cart)
 
         await fs.promises.writeFile(this.path, JSON.stringify(this.mainCart))
         return
@@ -36,8 +36,6 @@ class CartManager {
         const searchCart = cart.find ((cart) => id === cart.id)
         
         return (searchCart ? searchCart : console.error('El producto no existe'))
-
- 
     }
 
     async addProductToCart(idCart, idProduct){
