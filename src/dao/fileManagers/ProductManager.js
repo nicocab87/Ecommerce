@@ -32,7 +32,7 @@ class ProductManager {
         product.status = true;
         product.id = this.#id++
 
-        const data = await nuevoProducto.getProducts()
+        const data = await manager.getProducts()
 
         while (data.some(producto => producto.id === product.id)) {
             product.id = this.#id++;
@@ -95,7 +95,7 @@ class ProductManager {
 
 }
 
-const nuevoProducto = new ProductManager (`./Productos.JSON`)
 
 
-module.exports = nuevoProducto
+
+module.exports = ProductManager

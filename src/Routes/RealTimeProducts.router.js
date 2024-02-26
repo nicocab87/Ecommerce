@@ -1,33 +1,35 @@
 const {Router} = require(`express`);
-const nuevoProducto = require ("../dao/fileManagers/ProductManager");
+const ProductManager = require("../dao/dbManagers/products");
+
 
 const router = Router();
 
 router.get('/', async (req, res) => {
 
-    const data = await nuevoProducto.getProducts();
+    const data = await ProductManager();
     const productsLimit = req.query.limit;
 
     const productsFiltered = data.filter((products)=>products.id <= productsLimit)
 
     const dataToRender = (!productsLimit ? data : productsFiltered)
 
+    console.log('Real time products')
+
     res.render('realTimeProducts', {dataToRender} )
 })
 
 router.post('/', async (req, res) => {
     const product = req.body
-    const { title, category, description, price, code, stock } = product;
     
-    const data = await nuevoProducto.addProduct( title, category, description, price, code, stock);
+    const data = await ProductManager.addProduct(product);
 
-   if(data){
-    res.send({status:`succes`})
-
-    } else{
-        res.status(400)
-        res.send(`Error, datos incompletos o código repetido`)
-    }
+    if(data){
+        res.send({status:`succes`})
+    
+        } else{
+            res.status(400)
+            res.send(`Error, datos incompletos o código repetido`)
+        }
 })
 
 module.exports = router

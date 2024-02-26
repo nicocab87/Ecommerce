@@ -1,5 +1,5 @@
 const fs = require ('fs');
-const nuevoProducto = require('./ProductManager');
+const manager = require('./ProductManager');
 
 class CartManager {
     id=1;
@@ -39,7 +39,7 @@ class CartManager {
     }
 
     async addProductToCart(idCart, idProduct){
-        const productData = await nuevoProducto.getProductById(idProduct)
+        const productData = await manager.getProductById(idProduct)
         const cartData = await fs.promises.readFile(this.path, 'utf-8')
         const cart = JSON.parse(cartData)
         const cartToUpdate = cart.find(cartItem => cartItem.id === idCart);
