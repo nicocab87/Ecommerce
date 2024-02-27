@@ -36,7 +36,6 @@ class ProductManager {
 
         while (data.some(producto => producto.id === product.id)) {
             product.id = this.#id++;
-            console.log(`s`)
         } 
 
     
@@ -85,8 +84,6 @@ class ProductManager {
     async deleteProduct (id){
         const productParsed = JSON.parse(await fs.readFileSync(this.path, 'utf-8'))
         const productsFiltered = productParsed.filter ((product) => id !== product.id)
-        console.log(productsFiltered)
-        
         await fs.promises.writeFile(this.path, JSON.stringify(productsFiltered,null))
 
         return productsFiltered

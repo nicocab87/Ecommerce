@@ -17,19 +17,23 @@ class ProductManager {
     }
 
     async getProductById(id){
-    
+        let productData = await ProductModel.findById(id)
+        return productData;
     }
 
-    updateProduct(id, propietyToChange, value){
-
+    async updateProduct(id, change){
+        const data = await ProductModel.updateOne({_id: id}, change)
+        return data
     }
 
     async deleteProduct (id){
-
+        const data = await ProductModel.deleteOne({ _id: id });
     }
 
 }
 
+const manager = new ProductManager ()
 
 
-module.exports = ProductManager
+
+module.exports = manager

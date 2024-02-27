@@ -1,12 +1,11 @@
 const {Router} = require(`express`);
-const ProductManager = require("../dao/dbManagers/products");
-
+const manager = require("../dao/dbManagers/products");
 
 const router = Router();
 
 router.get('/', async (req, res) => {
 
-    const data = await ProductManager();
+    const data = await manager.getProducts();
     const productsLimit = req.query.limit;
 
     const productsFiltered = data.filter((products)=>products.id <= productsLimit)
@@ -21,15 +20,14 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const product = req.body
     
-    const data = await ProductManager.addProduct(product);
+    const data = await manager.addProduct(product);
 
     if(data){
         res.send({status:`succes`})
-    
+        
         } else{
-            res.status(400)
-            res.send(`Error, datos incompletos o código repetido`)
-        }
+            res.status(400).send(`Error, datos incompletos o código repetido`)
+    }
 })
 
 module.exports = router
