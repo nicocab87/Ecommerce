@@ -9,7 +9,7 @@ class CartManager {
     }
 
     async addCart(){
-        let newcart = await CartModel.create([{}])
+        let newcart = await CartModel.create({})
         console.log('carrito nuevo')
         return newcart
     }
