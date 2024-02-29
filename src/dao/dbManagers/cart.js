@@ -1,4 +1,3 @@
-
 const CartModel = require("../../models/carts");
 const manager = require("./products");
 

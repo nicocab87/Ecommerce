@@ -4,6 +4,7 @@ const {Server} = require ("socket.io");
 const productsRouter = require ("./Routes/Products.router");
 const cartRouter = require("./Routes/Carts.router");
 const realTimeRouter = require ("./Routes/RealTimeProducts.router")
+const viewsRouter = require ("./Routes/views.router")
 const manager = require ("./dao/fileManagers/ProductManager");
 const mongoose = require("mongoose");
 
@@ -23,7 +24,7 @@ app.use(express.static(`${__dirname}/public`));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-app.use(`/`, productsRouter);
+app.use(`/`, viewsRouter);
 app.use(`/api/products`, productsRouter);
 app.use(`/api/carts`, cartRouter);
 app.use(`/realtimeproducts`, realTimeRouter)
