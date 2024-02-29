@@ -17,13 +17,14 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get(`/:pid`, async (req, res) => {
-    const productId = req.params.pid
-    const data = await manager.getProductById(productId)
-    const error = `ERROR 404, el producto solicitado no existe`
-    
-    !data ? res.status(404).send(error) : res.send(data)
-})
+// router.get(`/:pid`, async (req, res) => {
+//     const productId = req.params.pid
+//     const data = await manager.getProductById(parseInt(productId))
+//     const error = `ERROR 404, el producto solicitado no existe`
+
+//     !data ? res.status(404).send(error) : res.send(data)
+// })
+
 
 router.get('/realtimeproducts', async (req, res) => {
 
@@ -37,6 +38,11 @@ router.get('/realtimeproducts', async (req, res) => {
     } catch (error) {
         res.status(440).send(error)
     }
+})
+
+router.get('/chat', async (req, res) => {
+
+    res.render('chat', {})
 })
 
 module.exports = router;

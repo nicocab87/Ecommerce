@@ -7,6 +7,8 @@ const realTimeRouter = require ("./Routes/RealTimeProducts.router")
 const viewsRouter = require ("./Routes/views.router")
 const manager = require ("./dao/fileManagers/ProductManager");
 const mongoose = require("mongoose");
+const chatCreatedAndUpdated = require("./Routes/chat.router");
+const chat_manager = require("./Routes/chat.router");
 
 
 const app = express();
@@ -37,6 +39,9 @@ mongoose.connect('mongodb+srv://nicolasferreyram:L3fdrsl3K8rnQsdp@cluster0.hzrrj
 
 const server = app.listen(port,()=>console.log(`Se ha levantado el servidor ${port}`))
 
+let messages = []
+
+// Config Socket.io
 const io = new Server (server);
 
 io.on('connection', (socket)=>{
@@ -45,6 +50,8 @@ io.on('connection', (socket)=>{
     socket.on('disconnect', ()=>{
         console.log(`${socket.id} desconectado`);
     });
+
+    // Se crea el chat cuando se conecta
 
     socket.on('addProduct', async (newProductData)=>{
         const { title, category, description, price, code, stock } = newProductData;
@@ -62,6 +69,17 @@ io.on('connection', (socket)=>{
         const data = await manager.getProducts()
 
         io.emit('updateProduct', data)
+    });
+
+    socket.on('userMessage', async (messageData) =>{
+        messages.push(messageData)
+        await chat_manager.newMessage(messages)
+        io.emit('messages', messages)
+    })
+
+    socket.on('authenticated', ({user})=>{
+        socket.emit('messages', messages)
+        socket.broadcast.emit('newUser', {newUser : user})
     })
 });
 

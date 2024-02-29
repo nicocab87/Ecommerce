@@ -15,6 +15,7 @@ router.get(`/:cid`, async (req,res) => {
     const idCart = req.params.cid;
     const data = await manager.getCartsById(idCart)
     const error = `ERROR 404, el producto solicitado no existe en el carrito`
+    console.log(data)
     
     if(!data){
         res.status(404).send(error)
