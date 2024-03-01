@@ -1,5 +1,7 @@
 .productsConatiner{
-    display: inline-block;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 
     .product{
         display: flex;

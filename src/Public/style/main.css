@@ -6,11 +6,13 @@
 
 .main {
   background-color: #415A77;
+  min-height: 87vh;
 }
 
 .navBar {
   border: 2px solid black;
   background-color: #1B263B;
+  min-height: 13vh;
 }
 .navBar .ul {
   display: flex;
@@ -31,7 +33,9 @@
 }
 
 .productsConatiner {
-  display: inline-block;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .productsConatiner .product {
   display: flex;

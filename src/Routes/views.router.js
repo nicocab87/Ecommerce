@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
     }
 })
 
+
 // router.get(`/:pid`, async (req, res) => {
 //     const productId = req.params.pid
 //     const data = await manager.getProductById(parseInt(productId))
@@ -29,12 +30,9 @@ router.get('/', async (req, res) => {
 router.get('/realtimeproducts', async (req, res) => {
 
     const data = await manager.getProducts();
-    const products = req.query.limit;
-
-    console.log('Real time products')
 
     try {
-        res.render('realTimeProducts', {products} )
+        res.render('realTimeProducts', {data} )
     } catch (error) {
         res.status(440).send(error)
     }
