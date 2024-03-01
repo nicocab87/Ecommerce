@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
     }
 })
 
+// El error que salía antes es por causa de este código
 
 // router.get(`/:pid`, async (req, res) => {
 //     const productId = req.params.pid

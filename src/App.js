@@ -5,10 +5,10 @@ const productsRouter = require ("./Routes/Products.router");
 const cartRouter = require("./Routes/Carts.router");
 const realTimeRouter = require ("./Routes/RealTimeProducts.router")
 const viewsRouter = require ("./Routes/views.router")
-const manager = require ("./dao/fileManagers/ProductManager");
+const manager = require ("./dao/dbManagers/products")
 const mongoose = require("mongoose");
-const chatCreatedAndUpdated = require("./Routes/chat.router");
 const chat_manager = require("./Routes/chat.router");
+
 
 
 const app = express();
@@ -56,7 +56,7 @@ io.on('connection', (socket)=>{
     socket.on('addProduct', async (newProductData)=>{
         const { title, category, description, price, code, stock } = newProductData;
     
-        await manager.addProduct( title, category, description, price, code, stock);
+        await manager.addProduct(newProductData);
 
         const data = await manager.getProducts()
 

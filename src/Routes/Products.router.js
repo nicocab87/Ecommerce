@@ -5,8 +5,10 @@ const router = Router();
 
 router.post('/', async (req, res) => {
     const product = req.body
+    console.log('product',product)
     
     const data = await manager.addProduct(product);
+    console.log(`data: ${data}`)
 
     if(data){
         res.send({status:`succes`})
