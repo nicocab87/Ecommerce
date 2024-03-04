@@ -6,42 +6,39 @@ const manager = new CartManager ()
 const router = Router();
 
 router.post(`/`, async (req, res) => {
-    await manager.addCart();
 
-    res.send({Status:`Succes`})
+    try {
+        await manager.addCart();
+        res.send({Status:`Succes`})
+
+    } catch (error) {
+        res.status(404).send(error)
+    }
 })
 
 router.get(`/:cid`, async (req,res) => {
     const idCart = req.params.cid;
-    const data = await manager.getCartsById(idCart)
-    const error = `ERROR 404, el producto solicitado no existe en el carrito`
-    console.log(data)
-    
-    if(!data){
+
+    try {
+        const data = await manager.getCartsById(idCart)
+        res.send(data)
+
+    } catch (error) {
         res.status(404).send(error)
     }
-    
-    res.send(data)
-
 })
 
 router.post(`/:cid/product/:pid`, async (req, res) => {
     const idCart = req.params.cid;
     const idProduct = req.params.pid;
 
-    if(isNaN(idCart) && isNaN(idProduct)){
-    
+    try {
         const data = await manager.addProductToCart(idCart, idProduct)
-        const error = `ERROR 404, el producto solicitado no existe en el carrito`
-    
-        if(!data){
-            res.status(404).send(error)
-        }
-    
         res.send(data)
-    }
-    
 
+    } catch (error) {
+        res.status(404).send(error)
+    }
 })
 
 module.exports = router

@@ -17,15 +17,19 @@ router.get('/', async (req, res) => {
     }
 })
 
-// El error que salía antes es por causa de este código
 
-// router.get(`/:pid`, async (req, res) => {
-//     const productId = req.params.pid
-//     const data = await manager.getProductById(parseInt(productId))
-//     const error = `ERROR 404, el producto solicitado no existe`
 
-//     !data ? res.status(404).send(error) : res.send(data)
-// })
+router.get(`/:pid`, async (req, res) => {
+    const productId = req.params.pid
+
+    try {
+    const data = await manager.getProductById(productId)
+    res.send(data)
+
+    } catch (error) {
+        res.status(404).send(error)
+    }
+})
 
 
 router.get('/realtimeproducts', async (req, res) => {

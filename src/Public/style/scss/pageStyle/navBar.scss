@@ -2,12 +2,14 @@
     border: 2px solid black;
     background-color: $secundaryBackground ;
     min-height: 13vh;
+    display: flex;
 
     .ul{
         display: flex;
         justify-content:space-around;
         margin: 1rem;
         gap: 1rem;
+
 
         .li{
             list-style-type: none;

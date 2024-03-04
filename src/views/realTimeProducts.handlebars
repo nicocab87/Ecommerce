@@ -29,19 +29,21 @@
         </form>
     </div>
 
-    <div id="productsContainer">
+    <div id="productsContainer" class="productsConatiner">
 
         {{#each data}}
-        <div class="box">
-            <p>Titulo: {{this.title}}</p>
-            <p>Categoria: {{this.category}}</p>
-            <p>Descripción: {{this.description}}</p>
+        <div class="box product">
+            <p>{{this.title}}</p>
+            <p>{{this.category}}</p>
+            <p>{{this.description}}</p>
             <p>{{this.thumbnail}}</p>
-            <p>Stock: {{this.stock}}</p>
-            <p>Precio: ${{this.price}}</p>
+            <p>{{this.stock}}</p>
+            <p>${{this.price}}</p>
             <button id="deleteButton_{{this.id}}" class="deleteProduct"> Borrar </button>
         </div>
         {{/each}}
+
+        {{!-- Para borrar caputar el id por mongoose.find({titulo}) o borrar directamente buscando el titulo --}}
 
     </div>
 </main>

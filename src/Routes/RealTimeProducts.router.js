@@ -5,15 +5,16 @@ const router = Router();
 
 router.post('/', async (req, res) => {
     const product = req.body
-    
-    const data = await manager.addProduct(product);
 
-    if(data){
+    try {
+        await manager.addProduct(product);
         res.send({status:`succes`})
-        
-        } else{
-            res.status(400).send(`Error, datos incompletos o código repetido`)
+
+    } catch (error) {
+        res.status(400).send(error)
     }
+    
+    
 })
 
 module.exports = router

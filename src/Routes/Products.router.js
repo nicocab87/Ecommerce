@@ -6,15 +6,14 @@ const router = Router();
 router.post('/', async (req, res) => {
     const product = req.body
     console.log('product',product)
-    
-    const data = await manager.addProduct(product);
-    console.log(`data: ${data}`)
 
-    if(data){
+    try {
+        const data = await manager.addProduct(product);
         res.send({status:`succes`})
-        
-        } else{
-            res.status(400).send(`Error, datos incompletos o código repetido`)
+
+    } catch (error) {
+        res.status(400).send(`Error, datos incompletos o código repetido`)
+        console.error(error)
     }
 })
 
@@ -22,18 +21,25 @@ router.put(`/:pid`, async(req, res) => {
     const productId = req.params.pid
     const productToUpdate = req.body
 
-    const data = await manager.updateProduct(productId, productToUpdate)
+    try {
+        const data = await manager.updateProduct(productId, productToUpdate)
+        res.send(data)
 
-    !data ? res.status(404).send('Id o propiedad a cambiar no existe') : res.send(data)
+    } catch (error) {
+        res.status(404).send('Id o propiedad a cambiar no existe')
+        console.error(error)
+    }
 })
 
 router.delete('/:pid', async(req, res) =>{
     const productId = req.params.pid
 
-    const data = await manager.deleteProduct(parseInt(productId))
-    const error = `ERROR 404, el producto solicitado no existe`
-
-    !data ? res.status(404).send(error) : res.send({status:`succes`})
+    try {
+        await manager.deleteProduct(productId)
+        res.send({status:`succes`})
+    } catch (error) {
+        res.status(404).send(error)
+    }
 })
 
 module.exports = router

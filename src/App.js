@@ -54,7 +54,7 @@ io.on('connection', (socket)=>{
     // Se crea el chat cuando se conecta
 
     socket.on('addProduct', async (newProductData)=>{
-        const { title, category, description, price, code, stock } = newProductData;
+        //const { title, category, description, price, code, stock } = newProductData;
     
         await manager.addProduct(newProductData);
 
