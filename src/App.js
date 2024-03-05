@@ -51,11 +51,7 @@ io.on('connection', (socket)=>{
         console.log(`${socket.id} desconectado`);
     });
 
-    // Se crea el chat cuando se conecta
-
     socket.on('addProduct', async (newProductData)=>{
-        //const { title, category, description, price, code, stock } = newProductData;
-    
         await manager.addProduct(newProductData);
 
         const data = await manager.getProducts()
