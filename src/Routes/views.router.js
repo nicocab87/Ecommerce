@@ -38,9 +38,6 @@ router.get('/products', async (req, res) => {
     let nextLink = rest.hasNextPage ? `products?page=${rest.nextPage}&limit=${limit} ` : null
     let prevLink =rest.hasPrevPage ? `products?page=${rest.prevPage}&limit=${limit} ` : null
 
-    // Cart
-    let cart =
-
     res.render('products',{product, ...rest, nextLink, prevLink})
     //res.send({status:'succes', ...rest})
 })
@@ -61,19 +58,16 @@ router.get('/chat', async (req, res) => {
     res.render('chat', {})
 })
 
-router.get('/carts', async (req,res) => {
-    try {
-        managerCart.getCart()
-    } catch (error) {
-        res.status(404).send(error)
-    }
-})
-
 router.get('/carts/:cid', async (req,res) => {
     const cartId = req.params.cid
 
     try {
-        managerCart.getCartsById(cartId)
+        const dataToRender = await managerCart.getCartsById(cartId)
+
+        const {products} = dataToRender
+
+        res.render('carts',{products})
+
     } catch (error) {
         res.status(404).send(error)
     }

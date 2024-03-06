@@ -19,9 +19,7 @@ class CartManager {
     }
 
     async getCartsById (id) { 
-        const searchCart = await CartModel.findById(id).populate('products.product')
-        console.log(JSON.stringify(searchCart, null, "\t"))
-        
+        const searchCart = await CartModel.findById(id).populate('products.product') 
         return (searchCart ? searchCart : console.error('El carrito no existe'))
     }
 

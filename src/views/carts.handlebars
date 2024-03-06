@@ -1,0 +1,11 @@
+{{#each products}}
+    <div class="product">
+        <p>Esto son los productos que hay en el carrito!</p>
+        <p>{{product.title}}</p>
+        <img src="{{this.product.thumbnail.[0]}}" alt="{{this.product.title}} thumbnail">
+        <p>Quantity: {{quantity}}</p>
+    </div>
+{{/each}}
+        
+
+

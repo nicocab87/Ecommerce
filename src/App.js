@@ -1,5 +1,7 @@
 const express = require("express");
 const handlebars = require("express-handlebars");
+const Handlebars = require('handlebars');
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 const {Server} = require ("socket.io"); 
 const productsRouter = require ("./Routes/Products.router");
 const cartRouter = require("./Routes/Carts.router");
@@ -15,7 +17,16 @@ const port = 8080
 
 
 // Handlebars setting
-app.engine('handlebars', handlebars.engine());
+
+const hbs = handlebars.create({
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true,
+    }
+});
+
+
+app.engine('handlebars', hbs.engine);
 app.set('views', `${__dirname}/views`);
 app.set(`view engine`, `handlebars`);
 
