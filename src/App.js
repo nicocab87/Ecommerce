@@ -8,8 +8,7 @@ const viewsRouter = require ("./Routes/views.router")
 const manager = require ("./dao/dbManagers/products")
 const mongoose = require("mongoose");
 const chat_manager = require("./Routes/chat.router");
-
-
+const managerCart = require("./dao/dbManagers/cart");
 
 const app = express();
 const port = 8080
@@ -77,6 +76,16 @@ io.on('connection', (socket)=>{
     socket.on('authenticated', ({user})=>{
         socket.emit('messages', messages)
         socket.broadcast.emit('newUser', {newUser : user})
+    })
+
+    socket.on('buttonAddProduct', async ()=>{
+        let dataCart = await managerCart.getCart()
+        
+        if(dataCart.length === 0){
+            await managerCart.addCart()
+        }
+
+        socket.emit('addProductResponse', dataCart)
     })
 });
 

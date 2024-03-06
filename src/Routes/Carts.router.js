@@ -1,12 +1,12 @@
 const {Router} = require(`express`);
-const CartManager = require("../dao/dbManagers/cart");
+const managerCart = require("../dao/dbManagers/cart");
 
 const router = Router();
 
 router.post(`/`, async (req, res) => {
 
     try {
-        await CartManager.addCart();
+        await managerCart.addCart();
         res.send({Status:`Succes`})
 
     } catch (error) {
@@ -18,7 +18,7 @@ router.get(`/:cid`, async (req,res) => {
     const idCart = req.params.cid;
 
     try {
-        const data = await CartManager.getCartsById(idCart)
+        const data = await managerCart.getCartsById(idCart)
         res.send(data)
 
     } catch (error) {
@@ -31,7 +31,7 @@ router.post(`/:cid/product/:pid`, async (req, res) => {
     const idProduct = req.params.pid;
 
     try {
-        const data = await CartManager.addProductToCart(idCart, idProduct)
+        const data = await managerCart.addProductToCart(idCart, idProduct)
         res.send({status: "succeses", data})
 
     } catch (error) {
@@ -39,7 +39,7 @@ router.post(`/:cid/product/:pid`, async (req, res) => {
     }
 })
 
-router.put('/:cid/products/:pid', async (req, res) => {
+router.put('/:cid/product/:pid', async (req, res) => {
     const idCart = req.params.cid;
     const idProduct = req.params.pid;
     const cantidad= req.body
@@ -48,7 +48,7 @@ router.put('/:cid/products/:pid', async (req, res) => {
     const number = cantidad.quantity
 
     try {
-        const data = await CartManager.changeQuantityToProduct(idCart, idProduct, number)
+        const data = await managerCart.changeQuantityToProduct(idCart, idProduct, number)
         res.send({status: 'succes', data})
     } catch (error) {
         res.status(404).send(error)
@@ -59,7 +59,7 @@ router.delete('/:cid', async (req, res) => {
     const idCart = req.params.cid;
 
     try {
-        const data = await CartManager.deleteCart(idCart)
+        const data = await managerCart.deleteCart(idCart)
         console.log('deletecart')
         res.send({status: 'succes', data})
 
@@ -73,7 +73,7 @@ router.delete('/:cid/products/:pid', async (req, res) => {
     const idProduct = req.params.pid;
     
     try {
-        const data = await CartManager.deleteProductToCart(idCart,idProduct)
+        const data = await managerCart.deleteProductToCart(idCart,idProduct)
         res.send({status: 'succes', data})
     } catch (error) {
         res.status(404).send(error)

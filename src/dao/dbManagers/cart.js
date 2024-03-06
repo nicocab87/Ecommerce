@@ -8,14 +8,14 @@ class CartManager {
     }
 
     async addCart(){
-        let newcart = await CartModel.create({})
-        console.log('carrito nuevo')
-        return newcart
+        const data = await CartModel.create({})
+
+        return (data ? data : console.error('El carrito no se creó'))
     }
 
     async getCart() {
         const data = await CartModel.find().populate('products.product')
-        return data
+        return data 
     }
 
     async getCartsById (id) { 

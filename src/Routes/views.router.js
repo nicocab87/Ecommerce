@@ -1,5 +1,7 @@
 const {Router} = require ("express");
 const manager = require("../dao/dbManagers/products");
+const managerCart = require("../dao/dbManagers/cart");
+
 
 const router = Router();
 
@@ -59,6 +61,23 @@ router.get('/chat', async (req, res) => {
     res.render('chat', {})
 })
 
+router.get('/carts', async (req,res) => {
+    try {
+        managerCart.getCart()
+    } catch (error) {
+        res.status(404).send(error)
+    }
+})
+
+router.get('/carts/:cid', async (req,res) => {
+    const cartId = req.params.cid
+
+    try {
+        managerCart.getCartsById(cartId)
+    } catch (error) {
+        res.status(404).send(error)
+    }
+})
 
 router.get(`/:pid`, async (req, res) => {
     const productId = req.params.pid
