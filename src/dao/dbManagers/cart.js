@@ -13,6 +13,11 @@ class CartManager {
         return newcart
     }
 
+    async getCart() {
+        const data = await CartModel.find().populate('products.product')
+        return data
+    }
+
     async getCartsById (id) { 
         const searchCart = await CartModel.findById(id).populate('products.product')
         console.log(JSON.stringify(searchCart, null, "\t"))
@@ -34,6 +39,35 @@ class CartManager {
         }
     }
 
+    async deleteProductToCart (idCart, idProduct){
+        const productData = await manager.getProductById(idProduct)
+        const cartToUpdate = await CartModel.findById(idCart)
+
+        if (cartToUpdate && productData){
+            const existingProduct = cartToUpdate.products.findIndex(item => item.product == idProduct)
+
+            existingProduct !== -1 && cartToUpdate.products.splice(existingProduct, 1)
+            await CartModel.updateOne({_id:idCart}, cartToUpdate)
+        }else{
+            console.error('Carrito o producto inexistente')
+        }
+    }
+
+    async changeQuantityToProduct (idCart, idProduct, number){
+        const productData = await manager.getProductById(idProduct)
+        const cartToUpdate = await CartModel.findById(idCart)
+        
+        if (cartToUpdate && productData) {
+            const existingProduct = cartToUpdate.products.findIndex(item => item.product == idProduct)
+
+            existingProduct !== -1 && (cartToUpdate.products[existingProduct].quantity = number)
+
+            await CartModel.updateOne({_id:idCart}, cartToUpdate)
+        }else{
+            console.error('Carrito o producto inexistente')
+        }
+    }
+
     async deleteCart (idCart){
         try {
             await CartModel.deleteOne({_id:idCart})
@@ -43,5 +77,7 @@ class CartManager {
     }
 }
 
-module.exports = CartManager
+const managerCart = new CartManager ()
+
+module.exports = managerCart
 

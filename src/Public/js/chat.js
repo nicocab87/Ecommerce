@@ -15,7 +15,7 @@ chatBox.addEventListener ('keyup', (e) => {
     }
 })
 
-// Socket EVents
+// Socket Events
 socket.on('messages', (message)=>{
     if(!user){return}
     console.log(message)

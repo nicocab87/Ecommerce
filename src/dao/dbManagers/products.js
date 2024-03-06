@@ -1,5 +1,4 @@
 const ProductModel = require("../../models/product")
-
 class ProductManager {
 
     constructor(){
@@ -14,6 +13,12 @@ class ProductManager {
     async getProducts () { 
         let productData = await ProductModel.find().lean()
         return productData;
+    }
+
+    async getPaginate (page, limit, opt) {
+        let result = await ProductModel.paginate(opt, {limit, page, lean: true})
+
+        return result
     }
 
     async getProductById(id){
@@ -33,7 +38,5 @@ class ProductManager {
 }
 
 const manager = new ProductManager ()
-
-
 
 module.exports = manager

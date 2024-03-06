@@ -1,9 +1,11 @@
 const socket = io();
 
+//Elements
 const createProductForm = document.getElementById("createProductForm");
 const productsConatiner = document.getElementById("productsContainer")
 let deleteButton = document.querySelectorAll('.deleteProduct')
 
+// Event Listenners
 document.addEventListener("DOMContentLoaded", function() {
     createProductForm.addEventListener('submit', async (e) => {
         e.preventDefault();

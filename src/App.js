@@ -31,6 +31,7 @@ app.use(`/api/products`, productsRouter);
 app.use(`/api/carts`, cartRouter);
 app.use(`/realtimeproducts`, realTimeRouter)
 
+
 // database connection
 mongoose.connect('mongodb+srv://nicolasferreyram:L3fdrsl3K8rnQsdp@cluster0.hzrrjcf.mongodb.net/').then(()=>{
     console.log('Mongoose conected')
