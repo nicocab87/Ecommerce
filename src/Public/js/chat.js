@@ -34,6 +34,8 @@ socket.on('newUser', ({newUser}) => {
     })
 })
 
+
+
 // Alerts
 Swal.fire({
     title:'Bienvenido al chat del Ecommerce',

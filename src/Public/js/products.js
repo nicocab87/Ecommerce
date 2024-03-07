@@ -24,6 +24,22 @@ buttonsAddToCart.forEach(button => {
                     'Content-Type': 'application/json'
                 }
             });
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: false,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+                Toast.fire({
+                icon: "success",
+                title: "Se ha agregado el producto al carrito!"
+            });
         });
     });
 });
