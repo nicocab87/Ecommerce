@@ -3,6 +3,20 @@ const manager = require("../dao/dbManagers/products");
 
 const router = Router();
 
+router.get('/', async (req, res) => {
+    const data = await manager.getProducts();
+    const productsLimit = parseInt(req.query.limit);
+
+    const productsFiltered = data.slice(0, productsLimit);
+
+    const dataToRender = (!productsLimit ? data : productsFiltered)
+    try {
+        res.send({dataToRender} )
+    } catch (error) {
+        res.status(440).send(error)
+    }
+})
+
 router.post('/', async (req, res) => {
     const product = req.body
     console.log('product',product)

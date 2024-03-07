@@ -17,15 +17,25 @@ router.get('/products', async (req, res) => {
 
     let page = req.query.page || 1
     let limit = req.query.limit || 5
+    let query = req.query.query
+    let querySort = req.query.sort
     let opt = {}
+    let sort
+
 
     if(req.query.query){
         opt = {
-            $or: [{description:req.query.query}, {category:req.query.query}]
+            $or: [
+                { description: { $regex: query, $options: 'i' } }, 
+                { category: { $regex: query, $options: 'i' } }
+            ]
         }
     }
 
-    let { docs, ...rest } = await manager.getPaginate(page, limit, opt)
+    querySort === "asc" && (sort = { price: -1 })
+    querySort === "desc" && (sort = { price: 1 })
+
+    let { docs, ...rest } = await manager.getPaginate(page, limit, opt, sort)
 
     let product = docs
 

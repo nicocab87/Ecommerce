@@ -15,8 +15,9 @@ class ProductManager {
         return productData;
     }
 
-    async getPaginate (page, limit, opt) {
-        let result = await ProductModel.paginate(opt, {limit, page, lean: true})
+    async getPaginate (page, limit, opt, sort) {
+        let result = await ProductModel.paginate(opt, {limit, page, sort, lean: true})
+        console.log(sort)
 
         return result
     }
