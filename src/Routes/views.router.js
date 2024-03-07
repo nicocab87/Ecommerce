@@ -6,14 +6,8 @@ const managerCart = require("../dao/dbManagers/cart");
 const router = Router();
 
 router.get('/', async (req, res) => {
-    const data = await manager.getProducts();
-    const productsLimit = parseInt(req.query.limit);
-
-    const productsFiltered = data.slice(0, productsLimit);
-
-    const dataToRender = (!productsLimit ? data : productsFiltered)
     try {
-        res.render('home', {dataToRender} )
+        res.render('home', {} )
     } catch (error) {
         res.status(440).send(error)
     }
