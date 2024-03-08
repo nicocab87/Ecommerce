@@ -14,6 +14,16 @@ router.post(`/`, async (req, res) => {
     }
 })
 
+router.get(`/`, async (req,res) => {
+    try {
+        const data = await managerCart.getCart()
+        res.send(data)
+
+    } catch (error) {
+        res.status(404).send(error)
+    }
+})
+
 router.get(`/:cid`, async (req,res) => {
     const idCart = req.params.cid;
 

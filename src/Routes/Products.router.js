@@ -4,14 +4,37 @@ const manager = require("../dao/dbManagers/products");
 const router = Router();
 
 router.get('/', async (req, res) => {
-    const data = await manager.getProducts();
-    const productsLimit = parseInt(req.query.limit);
+    let page = req.query.page || 1
+    let limit = req.query.limit || 6
+    let query = req.query.query
+    let querySort = req.query.sort
+    let opt = {}
+    let sort
 
-    const productsFiltered = data.slice(0, productsLimit);
 
-    const dataToRender = (!productsLimit ? data : productsFiltered)
+
+
+    if(req.query.query){
+        opt = {
+            $or: [
+                { description: { $regex: query, $options: 'i' } }, 
+                { category: { $regex: query, $options: 'i' } }
+            ]
+        }
+    }
+
+    querySort === "asc" && (sort = { price: -1 })
+    querySort === "desc" && (sort = { price: 1 })
+
+    let { docs, ...rest } = await manager.getPaginate(page, limit, opt, sort)
+
+    let product = docs
+
+    let nextLink = rest.hasNextPage ? `products?page=${rest.nextPage}&limit=${limit} ` : null
+    let prevLink =rest.hasPrevPage ? `products?page=${rest.prevPage}&limit=${limit} ` : null
+    
     try {
-        res.send({dataToRender} )
+        res.send({product, ...rest, nextLink, prevLink})
     } catch (error) {
         res.status(440).send(error)
     }
