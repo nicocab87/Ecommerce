@@ -42,7 +42,6 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const product = req.body
-    console.log('product',product)
 
     try {
         const data = await manager.addProduct(product);

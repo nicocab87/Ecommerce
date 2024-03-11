@@ -6,8 +6,6 @@ const router = Router();
 router.post('/register', async (req, res) => {
     const {first_name, last_name, email, age, password} = req.body;
 
-    console.log(req.body)
-
     if(!first_name || !last_name || !email || !age || !password){
         return res.status(400).send({status:'erros', error: 'missing data'})
     }
@@ -31,9 +29,11 @@ router.post('/login', async (req, res) => {
             return res.status(401).send({status:'error', error: 'incorrect credentials'})
         }
 
-        const rol= user.admin ? 'admin' : 'usuario'
+        const rol= user.isAdmin ? 'admin' : 'usuario'
 
-        console.log(`rol ${rol}`)
+        console.log(user.isAdmin,'user')
+
+        
     
         req.session.user = {
             name: `${user.first_name} ${user.last_name}`,

@@ -53,7 +53,6 @@ router.put('/:cid/product/:pid', async (req, res) => {
     const idCart = req.params.cid;
     const idProduct = req.params.pid;
     const cantidad= req.body
-    console.log(cantidad)
 
     const number = cantidad.quantity
 
@@ -70,7 +69,6 @@ router.delete('/:cid', async (req, res) => {
 
     try {
         const data = await managerCart.deleteCart(idCart)
-        console.log('deletecart')
         res.send({status: 'succes', data})
 
     } catch (error) {

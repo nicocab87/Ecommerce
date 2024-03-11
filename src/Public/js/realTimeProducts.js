@@ -15,9 +15,8 @@ document.addEventListener("DOMContentLoaded", function() {
     
             formData.forEach((value, key) => {
                 newProduct[key]=value.trim()
-                console.log('new product', newProduct)
-    
             });
+            
             socket.emit('addProduct', newProduct)
     });
     

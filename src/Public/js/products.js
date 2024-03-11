@@ -9,14 +9,11 @@ buttonsAddToCart.forEach(button => {
         const productId = button.dataset.productId;
         
         socket.emit('buttonAddProduct', ()=>{
-            console.log('nos vamos al back')
+            console.log('button add product')
         });
         
         socket.on('addProductResponse', async (dataCart) => {
             cartId = dataCart[0]._id;
-            console.log('ID de carrito:', cartId);
-            console.log('ID de producto:', productId);
-
             
             await fetch(`/api/carts/${cartId}/product/${productId}`, {
                 method: 'POST',

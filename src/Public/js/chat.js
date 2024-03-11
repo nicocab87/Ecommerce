@@ -18,7 +18,6 @@ chatBox.addEventListener ('keyup', (e) => {
 // Socket Events
 socket.on('messages', (message)=>{
     if(!user){return}
-    console.log(message)
     messageLog.innerHTML = ''
     message.forEach(m => {
         messageLog.innerHTML+= `<br/> ${m.time} ${m.user}: ${m.message}`

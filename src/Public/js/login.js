@@ -5,8 +5,6 @@ loginForm.addEventListener('submit', (e)=>{
     const data = new FormData (loginForm);
     const obj = {};
 
-    console.log(data, 'data')
-
     data.forEach((value, key) => obj[key] = value);
 
     fetch('/api/session/login',{ 

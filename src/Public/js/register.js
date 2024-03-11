@@ -5,8 +5,6 @@ registerForm.addEventListener('submit', (e)=>{
     const data = new FormData (registerForm);
     const obj = {};
 
-    console.log(data, 'data')
-
     data.forEach((value, key) => obj[key] = value);
 
     fetch('/api/session/register',{ 
@@ -16,6 +14,6 @@ registerForm.addEventListener('submit', (e)=>{
         'Content-Type': 'application/json'
     }
     }).then(res=>res.json()).then((data)=>{
-        console.log(data, 'data en then')
+        console.log(data)
     })
 })
