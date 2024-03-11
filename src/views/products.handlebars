@@ -1,4 +1,11 @@
 <div>
+
+    <div>
+        {{#if userData}}
+            <p class="subtitle-3">Hola {{userData.name}}, bienvenido!</p>
+        {{/if}}
+    </div>
+
     <div id="productsContainer" class="productsConatiner">
         {{#each product}}
             <div class="box product"> 

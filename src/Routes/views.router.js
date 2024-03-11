@@ -5,6 +5,32 @@ const managerCart = require("../dao/dbManagers/cart");
 
 const router = Router();
 
+// Middlewares
+
+const publicAccess = (req, res, next)=>{
+    if(req.session.user) return res.redirect('/products')
+
+    next();
+}
+
+const privateAccess = (req, res, next)=>{
+    if(!req.session.user) return res.redirect('/login')
+
+    next();
+}
+
+const isAdmin = (req, res, next) => {
+    const data = req.session.user
+
+    if(data && data.rol === 'admin'){
+        next();
+    } else {
+        return res.redirect('/products');
+    } 
+}
+
+// CRUD
+
 router.get('/', async (req, res) => {
     try {
         res.render('home', {} )
@@ -21,7 +47,7 @@ router.get('/products', async (req, res) => {
     let querySort = req.query.sort
     let opt = {}
     let sort
-
+    let userData = req.session.user
 
     if(req.query.query){
         opt = {
@@ -42,11 +68,10 @@ router.get('/products', async (req, res) => {
     let nextLink = rest.hasNextPage ? `products?page=${rest.nextPage}&limit=${limit} ` : null
     let prevLink =rest.hasPrevPage ? `products?page=${rest.prevPage}&limit=${limit} ` : null
 
-    res.render('products',{product, ...rest, nextLink, prevLink})
-    //res.send({status:'succes', ...rest})
+    res.render('products',{product, ...rest, nextLink, prevLink, userData})
 })
 
-router.get('/realtimeproducts', async (req, res) => {
+router.get('/realtimeproducts', isAdmin, async (req, res) => {
 
     const data = await manager.getProducts();
 
@@ -75,6 +100,18 @@ router.get('/carts/:cid', async (req,res) => {
     } catch (error) {
         res.status(404).send(error)
     }
+})
+
+router.get('/register', publicAccess, (req,res) =>{
+    res.render('register', {})
+})
+
+router.get('/login', publicAccess, (req,res) =>{
+    res.render('login', {})
+})
+
+router.get('/profile', privateAccess, (req,res) =>{
+    res.render('profile', {user: req.session.user})
 })
 
 router.get(`/:pid`, async (req, res) => {

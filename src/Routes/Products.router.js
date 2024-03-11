@@ -4,7 +4,7 @@ const manager = require("../dao/dbManagers/products");
 const router = Router();
 
 router.get('/', async (req, res) => {
-    let page = req.query.page || 1
+    let page = req.query.page || 6
     let limit = req.query.limit || 6
     let query = req.query.query
     let querySort = req.query.sort
