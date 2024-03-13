@@ -1,8 +1,24 @@
+// Variables
 const socket = io();
 let cartId;
 
 // Elements
 const buttonsAddToCart = document.querySelectorAll(".buttonAddToCart");
+
+// Swal Creation
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: false,
+    didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+    }
+});
+
+// EventListenner
 
 buttonsAddToCart.forEach(button => {
     button.addEventListener('click', () => {
@@ -19,18 +35,6 @@ buttonsAddToCart.forEach(button => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
-                }
-            });
-
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 2000,
-                timerProgressBar: false,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
                 }
             });
                 Toast.fire({

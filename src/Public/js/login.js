@@ -16,6 +16,13 @@ loginForm.addEventListener('submit', (e)=>{
     }).then(res=>{
         if(res.status == 200) {
             window.location.replace('/products')
+        }else{
+            Swal.fire({
+                icon: "error",
+                title: "Usuario o contraseña incorrecta",
+                text: "Intente nuevamente!",
+                footer: '<a href="/register">Registrarte</a>'
+            });
         }
     }).then(response=>{
         console.log(response)
