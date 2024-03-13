@@ -115,6 +115,10 @@ router.get('/profile', privateAccess, (req,res) =>{
     res.render('profile', {user: req.session.user})
 })
 
+router.get('/resetPassword', async (req, res)=>{
+    res.render('resetPassword', {})
+})
+
 router.get(`/:pid`, async (req, res) => {
     const productId = req.params.pid
 

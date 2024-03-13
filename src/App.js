@@ -3,23 +3,23 @@ const handlebars = require("express-handlebars");
 const {Server} = require ("socket.io"); 
 const productsRouter = require ("./Routes/Products.router");
 const cartRouter = require("./Routes/Carts.router");
-const realTimeRouter = require ("./Routes/RealTimeProducts.router")
-const viewsRouter = require ("./Routes/views.router")
-const sessionRouter = require ("./Routes/session.router")
-const manager = require ("./dao/dbManagers/products")
+const realTimeRouter = require ("./Routes/RealTimeProducts.router");
+const viewsRouter = require ("./routes/views.router")
+const sessionRouter = require ("./routes/session.router");
+const manager = require ("./dao/dbManagers/products");
 const mongoose = require("mongoose");
 const chat_manager = require("./Routes/chat.router");
 const managerCart = require("./dao/dbManagers/cart");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const passport = require("passport");
+const initializePassport = require("./config/passport.config");
 require ('dotenv').config();
 
 const app = express();
 const port = 8080
 
-
 // Handlebars setting
-
 const hbs = handlebars.create({
     runtimeOptions: {
         allowProtoPropertiesByDefault: true,
@@ -30,12 +30,6 @@ const hbs = handlebars.create({
 app.engine('handlebars', hbs.engine);
 app.set('views', `${__dirname}/views`);
 app.set(`view engine`, `handlebars`);
-
-app.use(express.static(`${__dirname}/public`));   
-
-// Middleware
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
 
 // database connection
 mongoose.connect(`mongodb+srv://nicolasferreyram:${process.env.MONGO_PASSWORD}@cluster0.hzrrjcf.mongodb.net/`).then(()=>{
@@ -54,6 +48,16 @@ app.use(session({
     })
 }))
 
+
+// Middleware
+app.use(express.static(`${__dirname}/public`));   
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+// Passport
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Routes
 
