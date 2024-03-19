@@ -1,17 +1,17 @@
-<div>
-    <form action=""  id="loginForm">
+{{!-- <div>
+    <form action="" id="loginForm">
         <div>
             <label for="email" class="label">Email</label>
-            <input type="text" name="email"/>
+            <input type="text" name="email" />
         </div>
         <br>
         <div>
             <label for="password" class="label">Contraseña</label>
-            <input type="password" name="password"/>
+            <input type="password" name="password" />
         </div>
         <br>
         <button id="loginButton" type="submit" class="button">Entrar</button>
-        <br>    
+        <br>
     </form>
     <div>
         <a href="/resetPassword">Olvidaste la contraseña?</a>
@@ -21,6 +21,40 @@
         <p>Si no tenes una cuenta, registrate aqui</p>
         <a href="/register"> <button>Registrate</button> </a>
     </div>
+</div> --}}
+
+<div>
+    <form action="" id="loginForm">
+        <div class="field">
+            <label for="email">
+                <p class="control has-icons-left has-icons-right"> <input name="email" class="input" type="email" placeholder="Email">
+                    <span class="icon is-small is-left"> <i class="fas fa-envelope"></i> </span> <span
+                        class="icon is-small is-right"> <i class="fas fa-check"></i> </span> </p>
+            </label>
+        </div>
+        <div class="field">
+            <label for="password">
+                <p class="control has-icons-left"> <input name="password" class="input" type="password" placeholder="Contraseña"> <span
+                        class="icon is-small is-left"> <i class="fas fa-lock"></i> </span> </p>
+            </label>
+        </div>
+        <div class="field">
+            <p class="control"> <button type="submit" class="button is-success"> Ingresar </button> </p>
+        </div>
+    </form>
+
+    <div>
+        <a href="/resetPassword">Olvidaste la contraseña?</a>
+    </div>
+
+    <div>
+        <p>Si no tenes una cuenta, registrate aqui</p>
+        <a href="/register"> <button>Registrate</button> </a>
+    </div>
+</div>
+
+<div>
+    <a href="/api/session/github"><button>Registrarte con GitHub</button></a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -63,6 +63,22 @@ router.post('/resetPassword', async (req, res) =>{
     res.send({status:'succes', message:'Password reset', details: result})
 })
 
+router.get('/github', passport.authenticate('github',{scope:['user:email']}, (req, res)=>{console.log('llegamos aca')}))
+
+router.get('/githubCallback', passport.authenticate('github', { failureRedirect: '/login' }), (req, res) => {
+    
+    const user = req.user
+    const rol= user.isAdmin ? 'admin' : 'usuario'
+
+    req.session.user = {
+        name:user.first_name,
+        email: user.email,
+        age: user.age,
+        rol: rol
+    }
+    
+    res.redirect('/');
+});
 
 
 module.exports = router

@@ -1,5 +1,6 @@
 const passport = require("passport");
 const local = require("passport-local");
+const githubStategy = require ("passport-github2")
 const { createHash, isValidPassword } = require("../utils");
 const userModel = require("../models/user");
 
@@ -45,6 +46,33 @@ const initializePassport = ()=>{
         } catch (error) {
             return done(error)
         }     
+    }))
+
+    passport.use('github', new githubStategy({
+        clientID: 'Iv1.34c0b9c475644c91',
+        callbackURL: 'http://localhost:8080/api/session/githubCallback',
+        clientSecret: '1804dbf3d19cb4d73a85fdb79bf559d450d8c92a'
+    }, async (_accesToken, _refreshToken, profile, done)=>{
+        try {
+            const user = await userModel.findOne({email: profile._json.email})
+
+            if(!user){
+                let newUser = {
+                    first_name : profile._json.name,
+                    last_name : '',
+                    age: 0,
+                    email: profile._json.email
+                }
+
+                let result = await userModel.create(newUser)
+                return done(null, result)
+            }else{
+                return done(null, user)
+            }
+        } catch (error) {
+            done(error)
+            
+        }
     }))
 }
 

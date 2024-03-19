@@ -1,33 +1,64 @@
-<div>
-    <form action=""  id="registerForm">
+{{!-- <div>
+    <form action="" id="registerForm">
         <div>
             <label for="first_name" class="label">Nombre</label>
-            <input type="text" name="first_name"/>
+            <input type="text" name="first_name" />
         </div>
         <br>
         <div>
             <label for="last_name" class="label">Apellido</label>
-            <input type="text" name="last_name"/>
+            <input type="text" name="last_name" />
         </div>
         <br>
         <div>
             <label for="age" class="label">Edad</label>
-            <input type="number" name="age"/>
+            <input type="number" name="age" />
         </div>
         <br>
         <div>
             <label for="email" class="label">Email</label>
-            <input type="text" name="email"/>
+            <input type="text" name="email" />
         </div>
         <br>
         <div>
             <label for="password" class="label">Contraseña</label>
-            <input type="password" name="password"/>
+            <input type="password" name="password" />
         </div>
         <br>
         <button id="registerButton" type="submit" class="button">Registrarte</button>
     </form>
+</div> --}}
+
+<div>
+    <form action="" id="registerForm">
+        <div class="field" > <label for="first_name" class="label">Nombre</label>
+            <div class="control"> <input class="input" type="text" placeholder="Tu nombre" name="first_name"> </div>
+        </div>
+
+        <div class="field" > <label for="last_name" class="label">Apellido</label>
+            <div class="control"> <input class="input" type="text" placeholder="Tu apellido" name="last_name"> </div>
+        </div>
+
+        <div class="field" > <label for="age" class="label">Edad</label>
+            <div class="control"> <input class="input" type="number" placeholder="Tu edad" name="age"> </div>
+        </div>
+
+        <div class="field"> <label class="label" for="email">Email</label>
+            <input name="email" class="input" type="email" placeholder="Email input"> 
+        </div>
+
+        <div class="field" > <label for="password" class="label">Contraseña</label>
+            <div class="control"> <input class="input" type="password" placeholder="Contraseña" name="password"> </div>
+        </div>
+
+        <div class="field is-grouped">
+            <div class="control"> <button type="submit" class="button is-link">Registrarte</button> </div>
+        </div>
+
+    </form>
+
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/register.js"></script>
