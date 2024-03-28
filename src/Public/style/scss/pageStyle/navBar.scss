@@ -3,10 +3,11 @@
     background-color: $secundaryBackground ;
     min-height: 13vh;
     display: flex;
+    
 
     .ul{
         display: flex;
-        justify-content:space-around;
+        justify-content: center;
         margin: 1rem;
         gap: 1rem;
 
@@ -18,13 +19,14 @@
                 color: black;
                 text-decoration: none;
 
-            }
-            
+            }   
         }
         
-        .li:hover{
-            color: wheat;
-        }
-
     }
+    
+}
+
+.perfilDiv{
+    margin-right:2rem;
+    color: $fifthBAckground;
 }

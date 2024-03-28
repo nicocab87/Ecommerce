@@ -17,13 +17,12 @@ router.get('/registerFail', async(req, res)=>{
 router.post('/login', passport.authenticate('login', {failureRedirect:'/api/session/loginFail'}), async (req, res) => {
     try {   
         const user = req.user
-        const rol= user.isAdmin ? 'admin' : 'usuario'
 
         req.session.user = {
             name: `${user.first_name} ${user.last_name}`,
             email: user.email,
             age: user.age,
-            rol: rol
+            rol: user.rol
         }
         
         res.send({status:'success', payload: req.session.user, message: 'success'})
@@ -68,17 +67,25 @@ router.get('/github', passport.authenticate('github',{scope:['user:email']}, (re
 router.get('/githubCallback', passport.authenticate('github', { failureRedirect: '/login' }), (req, res) => {
     
     const user = req.user
-    const rol= user.isAdmin ? 'admin' : 'usuario'
 
     req.session.user = {
         name:user.first_name,
         email: user.email,
         age: user.age,
-        rol: rol
+        rol: user.rol
     }
     
     res.redirect('/');
 });
+
+router.get('/current', async (req, res)=>{
+    if(req.session){
+        res.send({user: req.session.user})
+    }else{
+        console.error('No se ha iniciado ninguna sesión')
+    }
+    
+})
 
 
 module.exports = router

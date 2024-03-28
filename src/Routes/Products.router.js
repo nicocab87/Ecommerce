@@ -11,9 +11,6 @@ router.get('/', async (req, res) => {
     let opt = {}
     let sort
 
-
-
-
     if(req.query.query){
         opt = {
             $or: [

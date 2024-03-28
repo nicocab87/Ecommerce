@@ -23,7 +23,7 @@
     </div>
 </div> --}}
 
-<div>
+<div class="loginContainer is-flex-direction-column is-justify-content-center is-align-content-center ml-5">
     <form action="" id="loginForm">
         <div class="field">
             <label for="email">
@@ -48,14 +48,15 @@
     </div>
 
     <div>
-        <p>Si no tenes una cuenta, registrate aqui</p>
-        <a href="/register"> <button>Registrate</button> </a>
+        <a href="/register">Si no tenes una cuenta, registrate aqui</a>
+    </div>
+
+    <div>
+        <a href="/api/session/github"><button>Registrarte con GitHub</button></a>
     </div>
 </div>
 
-<div>
-    <a href="/api/session/github"><button>Registrarte con GitHub</button></a>
-</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/login.js"></script>
