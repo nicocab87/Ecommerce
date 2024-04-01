@@ -5,14 +5,15 @@ const { SassNumber } = require("sass");
 const USerSchema = new mongoose.Schema({
     first_name: String ,
     last_name: String ,
-    email: String ,
+    email: {
+        type: String,
+        unique: true
+    } ,
     age: Number,
     password: String,
     cart:{
-        cart:[{
-            type: mongoose.Schema.Types.ObjectId,
-            ref:'carts'
-        }]
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'carts'
     },
     rol: {
         type: String,

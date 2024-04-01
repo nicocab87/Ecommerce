@@ -72,7 +72,9 @@ router.get('/githubCallback', passport.authenticate('github', { failureRedirect:
         name:user.first_name,
         email: user.email,
         age: user.age,
-        rol: user.rol
+        rol: user.rol,
+        id: user._id,
+        cart
     }
     
     res.redirect('/');

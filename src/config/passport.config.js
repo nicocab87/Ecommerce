@@ -32,13 +32,16 @@ const initializePassport = ()=>{
         usernameField: 'email'
     }, async (email,password, done) => {
         try {
+            console.log(`${email}, es el email y la pass es ${password}`)
             const user = await userModel.findOne({email});
+            console.log(user,'user')
             if(!user){
                 return done(null, false)
             }
 
-            if(isValidPassword(user, password)){
-                return done(null, false)
+            if(!isValidPassword(user, password)){
+
+                return done(null,false)
             }
 
             return done(null, user)
