@@ -1,6 +1,8 @@
 const {Router} = require ("express");
-const manager = require("../dao/dbManagers/products");
-const managerCart = require("../dao/dbManagers/cart");
+const productsService = require("../services/products.service")
+const viewControler = require("../controllers/view.controller");
+
+const productService = new productsService()
 
 
 const router = Router();
@@ -31,13 +33,7 @@ const isAdmin = (req, res, next) => {
 
 // CRUD
 
-router.get('/', async (req, res) => {
-    try {
-        res.render('home', {} )
-    } catch (error) {
-        res.status(440).send(error)
-    }
-})
+router.get('/', viewControler.goHome)
 
 router.get('/products', async (req, res) => {
 
@@ -61,7 +57,7 @@ router.get('/products', async (req, res) => {
     querySort === "asc" && (sort = { price: -1 })
     querySort === "desc" && (sort = { price: 1 })
 
-    let { docs, ...rest } = await manager.getPaginate(page, limit, opt, sort)
+    let { docs, ...rest } = await productService.paginate(page, limit, opt, sort)
 
     let product = docs
 
@@ -72,63 +68,20 @@ router.get('/products', async (req, res) => {
     res.render('products',{product, ...rest, nextLink, prevLink, userData})
 })
 
-router.get('/realtimeproducts', isAdmin, async (req, res) => {
+router.get('/realtimeproducts', isAdmin, viewControler.goRealTimeProducts)
 
-    const data = await manager.getProducts();
+router.get('/chat', privateAccess , viewControler.goChat)
 
-    try {
-        res.render('realTimeProducts', {data} )
-    } catch (error) {
-        res.status(440).send(error)
-    }
-})
+router.get('/carts/:cid', viewControler.goCart)
 
-router.get('/chat', async (req, res) => {
+router.get('/register', publicAccess, viewControler.goRegister)
 
-    res.render('chat', {})
-})
+router.get('/login', publicAccess, viewControler.goLogin)
 
-router.get('/carts/:cid', async (req,res) => {
-    const cartId = req.params.cid
+router.get('/profile', privateAccess, viewControler.goProfile)
 
-    try {
-        const dataToRender = await managerCart.getCartsById(cartId)
+router.get('/resetPassword', viewControler.goResetPassword)
 
-        const {products} = dataToRender
-
-        res.render('carts',{products})
-
-    } catch (error) {
-        res.status(404).send(error)
-    }
-})
-
-router.get('/register', publicAccess, (req,res) =>{
-    res.render('register', {})
-})
-
-router.get('/login', publicAccess, (req,res) =>{
-    res.render('login', {})
-})
-
-router.get('/profile', privateAccess, (req,res) =>{
-    res.render('profile', {user: req.session.user})
-})
-
-router.get('/resetPassword', async (req, res)=>{
-    res.render('resetPassword', {})
-})
-
-router.get(`/:pid`, async (req, res) => {
-    const productId = req.params.pid
-
-    try {
-    const dataToRender = await manager.getProductById(productId)
-    res.render('home',{dataToRender})
-
-    } catch (error) {
-        res.status(404).send(error)
-    }
-})
+router.get(`/:pid`, viewControler.goGetProductById)
 
 module.exports = router;

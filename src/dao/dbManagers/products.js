@@ -36,6 +36,4 @@ class ProductManager {
 
 }
 
-const manager = new ProductManager ()
-
-module.exports = manager
+module.exports = ProductManager

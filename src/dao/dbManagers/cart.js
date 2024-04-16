@@ -1,6 +1,8 @@
 const CartModel = require("../../models/carts");
 const manager = require("./products");
 
+const productsService = require('../../services/products.service');
+
 class CartManager {
 
     constructor(){
@@ -24,7 +26,7 @@ class CartManager {
     }
 
     async addProductToCart(idCart, idProduct){
-        const productData = await manager.getProductById(idProduct)
+        const productData = await productsService.getById(idProduct)
         const cartToUpdate = await CartModel.findById(idCart)
 
         if (cartToUpdate && productData) {
@@ -38,7 +40,7 @@ class CartManager {
     }
 
     async deleteProductToCart (idCart, idProduct){
-        const productData = await manager.getProductById(idProduct)
+        const productData = await productsService.getById(idProduct)
         const cartToUpdate = await CartModel.findById(idCart)
 
         if (cartToUpdate && productData){
@@ -52,7 +54,7 @@ class CartManager {
     }
 
     async changeQuantityToProduct (idCart, idProduct, number){
-        const productData = await manager.getProductById(idProduct)
+        const productData = await productsService.getById(idProduct)
         const cartToUpdate = await CartModel.findById(idCart)
         
         if (cartToUpdate && productData) {
@@ -75,7 +77,5 @@ class CartManager {
     }
 }
 
-const managerCart = new CartManager ()
-
-module.exports = managerCart
+module.exports = CartManager
 

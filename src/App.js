@@ -6,18 +6,18 @@ const cartRouter = require("./Routes/Carts.router");
 const realTimeRouter = require ("./Routes/RealTimeProducts.router");
 const viewsRouter = require ("./routes/views.router")
 const sessionRouter = require ("./routes/session.router");
-const manager = require ("./dao/dbManagers/products");
 const mongoose = require("mongoose");
 const chat_manager = require("./Routes/chat.router");
-const managerCart = require("./dao/dbManagers/cart");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const initializePassport = require("./config/passport.config");
+const { sessionSecret, mongoPassword, port } = require("./config/config");
+const productsService = require("./services/products.service");
+const cartsService = require("./services/carts.service");
 require ('dotenv').config();
 
 const app = express();
-const port = 8080
 
 // Handlebars setting
 const hbs = handlebars.create({
@@ -32,18 +32,18 @@ app.set('views', `${__dirname}/views`);
 app.set(`view engine`, `handlebars`);
 
 // database connection
-mongoose.connect(`mongodb+srv://nicolasferreyram:${process.env.MONGO_PASSWORD}@cluster0.hzrrjcf.mongodb.net/`).then(()=>{
+mongoose.connect(`mongodb+srv://nicolasferreyram:${mongoPassword}@cluster0.hzrrjcf.mongodb.net/`).then(()=>{
     console.log('Mongoose conected')
 });
 
 // Session Setting
 
 app.use(session({
-    secret: 'ourSecret',
+    secret: `${sessionSecret}`,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-        mongoUrl:`mongodb+srv://nicolasferreyram:${process.env.MONGO_PASSWORD}@cluster0.hzrrjcf.mongodb.net/`,
+        mongoUrl:`mongodb+srv://nicolasferreyram:${mongoPassword}@cluster0.hzrrjcf.mongodb.net/`,
         ttl: 60*60
     })
 }))
@@ -74,6 +74,8 @@ let messages = []
 
 // Config Socket.io
 const io = new Server (server);
+const productService = new productsService()
+const cartService = new cartsService()
 
 io.on('connection', (socket)=>{
     console.log(`Conectado: ${socket.id}`);
@@ -83,17 +85,17 @@ io.on('connection', (socket)=>{
     });
 
     socket.on('addProduct', async (newProductData)=>{
-        await manager.addProduct(newProductData);
+        await productService.create(newProductData);
 
-        const data = await manager.getProducts()
+        const data = await productService.getAll()
 
         io.emit('updateProduct', data);
     });
 
     socket.on('deleteProduct', async (idProductToDelete) => {
-        await manager.deleteProduct(idProductToDelete)
+        await productService.delete(idProductToDelete)
 
-        const data = await manager.getProducts()
+        const data = await productService.getAll()
 
         io.emit('updateProduct', data)
     });
@@ -110,10 +112,10 @@ io.on('connection', (socket)=>{
     })
 
     socket.on('buttonAddProduct', async ()=>{
-        let dataCart = await managerCart.getCart()
+        let dataCart = await cartService.getAll()
         
         if(dataCart.length === 0){
-            await managerCart.addCart()
+            await cartService.create()
         }
 
         socket.emit('addProductResponse', dataCart)
