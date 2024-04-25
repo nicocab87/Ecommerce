@@ -18,6 +18,14 @@ const Toast = Swal.mixin({
     }
 });
 
+
+// Get CartId
+fetch('/api/session/current')
+    .then(response => response.json())
+    .then(data => {
+        cartId= data.user.cart
+    })
+
 // EventListenner
 
 buttonsAddToCart.forEach(button => {
@@ -28,9 +36,8 @@ buttonsAddToCart.forEach(button => {
             console.log('button add product')
         });
         
-        socket.on('addProductResponse', async (dataCart) => {
-            cartId = dataCart[0]._id;
-            
+        socket.on('addProductResponse', async () => {
+            console.log(cartId,'cart')
             await fetch(`/api/carts/${cartId}/product/${productId}`, {
                 method: 'POST',
                 headers: {

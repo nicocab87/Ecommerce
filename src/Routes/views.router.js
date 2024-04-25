@@ -1,35 +1,12 @@
 const {Router} = require ("express");
 const productsService = require("../services/products.service")
 const viewControler = require("../controllers/view.controller");
+const { privateAccess, publicAccess, isAdmin } = require("../middlewares/checkRole.middleware");
 
 const productService = new productsService()
 
 
 const router = Router();
-
-// Middlewares
-
-const publicAccess = (req, res, next)=>{
-    if(req.session.user) return res.redirect('/products')
-
-    next();
-}
-
-const privateAccess = (req, res, next)=>{
-    if(!req.session.user) return res.redirect('/login')
-
-    next();
-}
-
-const isAdmin = (req, res, next) => {
-    const data = req.session.user
-
-    if(data && data.rol === 'admin'){
-        next();
-    } else {
-        return res.redirect('/products');
-    } 
-}
 
 // CRUD
 

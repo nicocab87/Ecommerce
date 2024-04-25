@@ -1,10 +1,8 @@
-const ProductManager = require("../dao/dbManagers/products")
-
 class productsService{
 
-    constructor (){
+    constructor (dao){
         if (!productsService.instance) {
-            this.dao = new ProductManager();
+            this.dao = dao;
             productsService.instance = this;
         }
         return productsService.instance;

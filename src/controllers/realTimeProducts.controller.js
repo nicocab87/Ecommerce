@@ -1,6 +1,4 @@
-const productsService = require("../services/products.service");
-
-const productService = new productsService()
+const productService = require("../repositories/index");
 
 class realTimeProductsController{
     static async create(req, res){

@@ -1,6 +1,5 @@
-const productsService = require("../services/products.service")
+const productService = require("../repositories/index")
 
-const productService = new productsService()
 
 class productsController{
     static async get(req, res){

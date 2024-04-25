@@ -3,6 +3,7 @@ const local = require("passport-local");
 const githubStategy = require ("passport-github2")
 const { createHash, isValidPassword } = require("../utils");
 const userModel = require("../models/user");
+const { cartService } = require("../repositories");
 
 const localStrategy = local.Strategy;
 
@@ -19,7 +20,10 @@ const initializePassport = ()=>{
                     return done(null,false)
                 }
 
-                const newUser = {first_name, last_name, email, age, password: createHash(password)}
+                const cart = await cartService.create()
+                console.log(cart,'cart')
+
+                const newUser = {first_name, last_name, email, age, password: createHash(password), cart:cart._id}
                 const result = await userModel.create(newUser)
                 return done(null, result)
 
@@ -32,15 +36,12 @@ const initializePassport = ()=>{
         usernameField: 'email'
     }, async (email,password, done) => {
         try {
-            console.log(`${email}, es el email y la pass es ${password}`)
             const user = await userModel.findOne({email});
-            console.log(user,'user')
             if(!user){
                 return done(null, false)
             }
 
             if(!isValidPassword(user, password)){
-
                 return done(null,false)
             }
 
@@ -58,13 +59,15 @@ const initializePassport = ()=>{
     }, async (_accesToken, _refreshToken, profile, done)=>{
         try {
             const user = await userModel.findOne({email: profile._json.email})
+            const cart = await cartsService.create()
 
             if(!user){
                 let newUser = {
                     first_name : profile._json.name,
                     last_name : '',
                     age: 0,
-                    email: profile._json.email
+                    email: profile._json.email,
+                    cart:cart._id
                 }
 
                 let result = await userModel.create(newUser)

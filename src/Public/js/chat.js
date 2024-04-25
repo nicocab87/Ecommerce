@@ -33,21 +33,28 @@ socket.on('newUser', ({newUser}) => {
     })
 })
 
+fetch('/api/session/current')
+    .then(response=>response.json())
+    .then(data=>{
+        user = data.user.email
+        socket.emit('authenticated',user)
+    })
+
 
 
 // Alerts
-Swal.fire({
-    title:'Bienvenido al chat del Ecommerce',
-    text:'Ingresa tu Email!',
-    input: 'text',
-    allowOutsideClick: false,
-    inputValidator: (value) => {
-        if(!value){
-            return "pone un email"
-        }
-    }
-}).then((result)=> {
-    user = result.value
-    userEmail.innerHTML = `Usted accedió como: ${user}`
-    socket.emit('authenticated', {user})
-})
+// Swal.fire({
+//     title:'Bienvenido al chat del Ecommerce',
+//     text:'Ingresa tu Email!',
+//     input: 'text',
+//     allowOutsideClick: false,
+//     inputValidator: (value) => {
+//         if(!value){
+//             return "pone un email"
+//         }
+//     }
+// }).then((result)=> {
+//     user = result.value
+//     userEmail.innerHTML = `Usted accedió como: ${user}`
+//     socket.emit('authenticated', {user})
+// })

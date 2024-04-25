@@ -70,12 +70,11 @@ app.use('/api/session', sessionRouter)
 
 const server = app.listen(port,()=>console.log(`Se ha levantado el servidor ${port}`))
 
-let messages = []
-
 // Config Socket.io
 const io = new Server (server);
 const productService = new productsService()
 const cartService = new cartsService()
+let messages = []
 
 io.on('connection', (socket)=>{
     console.log(`Conectado: ${socket.id}`);
@@ -106,7 +105,7 @@ io.on('connection', (socket)=>{
         io.emit('messages', messages)
     })
 
-    socket.on('authenticated', ({user})=>{
+    socket.on('authenticated', (user)=>{
         socket.emit('messages', messages)
         socket.broadcast.emit('newUser', {newUser : user})
     })

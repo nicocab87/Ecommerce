@@ -1,9 +1,7 @@
-const CartManager = require("../dao/dbManagers/cart");
-
 class cartsService{
-    constructor(){
+    constructor(dao){
         if (!cartsService.instance) {
-            this.dao = new CartManager();
+            this.dao = dao;
             cartsService.instance = this;
         }
         return cartsService.instance;

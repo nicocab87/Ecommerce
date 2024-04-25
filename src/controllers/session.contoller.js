@@ -1,3 +1,4 @@
+const UserDTO = require("../DTOs/userDTO")
 const userModel = require("../models/user")
 
 class sessionController{
@@ -16,7 +17,8 @@ class sessionController{
                 name: `${user.first_name} ${user.last_name}`,
                 email: user.email,
                 age: user.age,
-                rol: user.rol
+                rol: user.rol,
+                cart:user.cart
             }
 
             res.send({status:'success', payload: req.session.user, message: 'success'})
@@ -63,13 +65,14 @@ class sessionController{
             age: user.age,
             rol: user.rol,
             id: user._id,
-            cart
+            cart: user.cart
         }
         res.redirect('/');    
     }
 
     static async current(req, res){
         if(req.session){
+            //const userDTO = new UserDTO(req.session.user)
             res.send({user: req.session.user})
         }else{
             console.error('No se ha iniciado ninguna sesión')

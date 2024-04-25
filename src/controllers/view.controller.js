@@ -1,8 +1,6 @@
-const cartsService = require("../services/carts.service");
-const productsService = require("../services/products.service");
+const cartService = require("../repositories/index");
+const productService = require("../repositories/index");
 
-const productService = new productsService()
-const cartService = new cartsService()
 
 class viewControler{
     static async goHome (req, res){
