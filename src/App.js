@@ -15,6 +15,8 @@ const initializePassport = require("./config/passport.config");
 const { sessionSecret, mongoPassword, port } = require("./config/config");
 const productsService = require("./services/products.service");
 const cartsService = require("./services/carts.service");
+const userModel = require("./models/user");
+const sessionController = require("./controllers/session.contoller");
 require ('dotenv').config();
 
 const app = express();
@@ -108,16 +110,6 @@ io.on('connection', (socket)=>{
     socket.on('authenticated', (user)=>{
         socket.emit('messages', messages)
         socket.broadcast.emit('newUser', {newUser : user})
-    })
-
-    socket.on('buttonAddProduct', async ()=>{
-        let dataCart = await cartService.getAll()
-        
-        if(dataCart.length === 0){
-            await cartService.create()
-        }
-
-        socket.emit('addProductResponse', dataCart)
     })
 });
 

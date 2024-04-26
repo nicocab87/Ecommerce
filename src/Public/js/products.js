@@ -18,37 +18,36 @@ const Toast = Swal.mixin({
     }
 });
 
-
-// Get CartId
-fetch('/api/session/current')
-    .then(response => response.json())
-    .then(data => {
-        cartId= data.user.cart
-    })
-
 // EventListenner
 
 buttonsAddToCart.forEach(button => {
     button.addEventListener('click', () => {
-        const productId = button.dataset.productId;
-        
-        socket.emit('buttonAddProduct', ()=>{
-            console.log('button add product')
-        });
-        
-        socket.on('addProductResponse', async () => {
-            console.log(cartId,'cart')
-            await fetch(`/api/carts/${cartId}/product/${productId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
+        fetch('api/session/current')
+            .then(res=>res.json())
+            .then(async (data)=>{
+                if(data.user){
+                    const cartId=data.user.cart
+                    const productId = button.dataset.productId;
+                    console.log(productId,'productID')
+
+                    await fetch(`/api/carts/${cartId}/product/${productId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        } 
+                    }).then(res=>{
+                        if(res.status == 200) {
+                            Toast.fire({
+                                icon: "success",
+                                title: "Se ha agregado el producto al carrito!"
+                            });
+                        }
+                    })
+
+                }else{
+                    window.location.replace('/login')
                 }
-            });
-                Toast.fire({
-                icon: "success",
-                title: "Se ha agregado el producto al carrito!"
-            });
-        });
+            })
     });
 });
 

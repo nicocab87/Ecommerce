@@ -20,7 +20,12 @@ class cartsService{
     }
 
     addProduct(idCart, idProduct){
-        return this.dao.addProductToCart(idCart, idProduct)
+        try {
+            const data = this.dao.addProductToCart(idCart, idProduct)
+            return data
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     deleteProduct(idCart, idProduct){

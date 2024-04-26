@@ -1,4 +1,4 @@
-const cartService = require("../repositories/index");
+const {cartService} = require("../repositories/index");
 
 class cartsController{
     static async create (req, res){
@@ -33,10 +33,10 @@ class cartsController{
         const idCart = req.params.cid;
         const idProduct = req.params.pid;
         try {
-            const data = await cartService.addProductToCart(idCart, idProduct)
+            const data = await cartService.addProduct(idCart, idProduct)
             res.send({status: "succeses", data})
         } catch (error) {
-            res.status(404).send(error)
+            res.status(404).send(error.message)
         }
     }
 
