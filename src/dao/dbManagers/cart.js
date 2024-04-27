@@ -40,7 +40,7 @@ class CartManager {
     }
 
     async deleteProductToCart (idCart, idProduct){
-        const productData = await productsService.getById(idProduct)
+        const productData = await this.productsService.getById(idProduct)
         const cartToUpdate = await CartModel.findById(idCart)
 
         if (cartToUpdate && productData){

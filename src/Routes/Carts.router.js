@@ -18,6 +18,6 @@ router.delete('/:cid', cartsController.delete)
 
 router.delete('/:cid/products/:pid', cartsController.deleteProduct)
 
-router.post('/:cid/purchase', )
+router.get('/:cid/purchase', cartsController.purchase)
 
 module.exports = router

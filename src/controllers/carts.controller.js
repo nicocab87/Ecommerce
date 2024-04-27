@@ -74,6 +74,16 @@ class cartsController{
             res.status(404).send(error)
         }    
     }
+
+    static async purchase(req,res){
+        const idCart = req.params.cid;
+        try {
+            const remainderProduct = await cartService.purchase(idCart, req.session.user.email)
+            res.send({status:'succes', payload:remainderProduct})
+        } catch (error) {
+            return res.status(500).send({status:'error', error:error.message})
+        }
+    }
 }
 
 module.exports = cartsController

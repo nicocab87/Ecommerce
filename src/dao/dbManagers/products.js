@@ -26,7 +26,7 @@ class ProductManager {
     }
 
     async updateProduct(id, change){
-        const data = await ProductModel.updateOne({_id: id}, change)
+        const data = await ProductModel.findByIdAndUpdate({_id:id}, change, { new: true })
         return data
     }
 
