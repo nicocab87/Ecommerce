@@ -1,5 +1,5 @@
-const cartService = require("../repositories/index");
-const productService = require("../repositories/index");
+const {cartService} = require("../repositories/index");
+const {productService} = require("../repositories/index");
 
 
 class viewControler{
@@ -31,10 +31,17 @@ class viewControler{
 
     static async goCart (req, res) {
         const cartId = req.params.cid
-        try {
+        try { 
             const dataToRender = await cartService.getById(cartId)
             const {products} = dataToRender
-            res.render('carts',{products})
+            let data =[]
+            products.forEach(e => {
+                const total = e.product.price*e.quantity
+                e={...e, total:total}
+                data.push(e)
+            });
+            
+            res.render('carts',{data})
         } catch (error) {
             res.status(404).send(error)
         }

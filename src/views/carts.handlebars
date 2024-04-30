@@ -1,11 +1,18 @@
-{{#each products}}
-    <div class="product">
-        <p>Esto son los productos que hay en el carrito!</p>
-        <p>{{product.title}}</p>
-        <img src="{{this.product.thumbnail.[0]}}" alt="{{this.product.title}} thumbnail">
-        <p>Quantity: {{quantity}}</p>
+<div class="cartContainer"> 
+    <p>Esto son los productos que hay en el carrito:</p>
+    <div>
+        {{#each data}}
+            <div class="product box">
+                <p class="oroductTitle">{{product.title}}</p>
+                <img class="productImage" src="{{this.product.thumbnail.[0]}}" alt="{{this.product.title}} thumbnail">
+                <p class="productQuantity">Cantidad: {{quantity}}</p>
+                <p class="productTotal">${{total}}</p>
+            </div>
+        {{/each}}
+        <button class="button" id="purchase">Comprar</button>
     </div>
-{{/each}}
+</div>
+
         
 
 

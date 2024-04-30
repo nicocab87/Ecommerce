@@ -30,7 +30,7 @@ class TicketService{
     async generate(email, totalAmount){
         const ticket = await this.dao.create({
             code:`${Math.random()}`,
-            purchase_dateTime: new Date().toLocaleString,
+            purchase_dateTime: new Date(),
             amount:totalAmount,
             purchaser:email
         })
