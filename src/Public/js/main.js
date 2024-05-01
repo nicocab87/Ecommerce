@@ -4,7 +4,6 @@ const perfilDiv = document.getElementById("perfilDiv");
 fetch('/api/session/current')
     .then(response => response.json())
     .then(data => {
-        cartId = data.user.cart
         perfilDiv.innerHTML =' '
         if (data.user) {
             perfilDiv.innerHTML = `
