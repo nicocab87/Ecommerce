@@ -1,5 +1,6 @@
 const {cartService} = require("../repositories/index");
 const {productService} = require("../repositories/index");
+const { generateProduct } = require("../utils");
 
 
 class viewControler{
@@ -63,6 +64,15 @@ class viewControler{
         res.render('resetPassword', {})
     }
 
+    static async getMocking(req,res){
+        try {
+            const data = generateProduct(100)
+            res.send({status:'success', payload: data})
+        } catch (error) {
+            res.status(404).send(error)
+        }
+    }
+
     static async goGetProductById (req, res){
         const productId = req.params.pid
 
@@ -73,6 +83,8 @@ class viewControler{
             res.status(404).send(error)
         }
     }
+
+    
 }
 
 module.exports = viewControler

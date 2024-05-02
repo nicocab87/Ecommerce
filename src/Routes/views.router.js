@@ -59,6 +59,10 @@ router.get('/profile', privateAccess, viewControler.goProfile)
 
 router.get('/resetPassword', viewControler.goResetPassword)
 
+router.get('/mockingProducts', viewControler.getMocking)
+
 router.get(`/:pid`, viewControler.goGetProductById)
+
+
 
 module.exports = router;
