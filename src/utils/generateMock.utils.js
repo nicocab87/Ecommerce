@@ -1,17 +1,6 @@
-const { faker } = require('@faker-js/faker');
-const bcrypt = require ('bcrypt');
+const { faker } = require("@faker-js/faker");
 
-const createHash = (password) => {
-    const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-    return hashedPassword
-}
-
-const isValidPassword = (user, password) => {
-    const isValid = bcrypt.compareSync(password,user.password)
-    return isValid
-}
-
-const generateProduct = (number)=>{
+export const generateProduct = (number)=>{
     let products = [];
 
     for (let i = 0; i <number; i++) {
@@ -30,10 +19,4 @@ const generateProduct = (number)=>{
     }
 
     return products
-}
-
-module.exports = {
-    createHash,
-    isValidPassword,
-    generateProduct
 }

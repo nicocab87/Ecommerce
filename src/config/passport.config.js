@@ -4,6 +4,9 @@ const githubStategy = require ("passport-github2")
 const { createHash, isValidPassword } = require("../utils");
 const userModel = require("../models/user");
 const { cartService } = require("../repositories");
+const { CustomError } = require("../utils/errorHandling/customError");
+const { getUserErrorInfo } = require("../utils/errorHandling/info");
+const { errorTypes } = require("../utils/errorHandling/errorTypes");
 
 const localStrategy = local.Strategy;
 
@@ -18,17 +21,24 @@ const initializePassport = ()=>{
             try {
                 if(user){
                     return done(null,false)
+                }                
+                if(!first_name || !last_name || !email){
+                    throw new CustomError({
+                        name:'Error en la creación del usuario',
+                        cause: getUserErrorInfo({first_name, last_name,email}),
+                        message: ' No se ha podido crear el usuario',
+                        code: errorTypes.INVALID_TYPE
+                    })
                 }
 
                 const cart = await cartService.create()
-                console.log(cart,'cart')
 
                 const newUser = {first_name, last_name, email, age, password: createHash(password), cart:cart._id}
                 const result = await userModel.create(newUser)
                 return done(null, result)
 
             } catch (error) {
-                return done(error)
+                next(error)
             }
     }))
 

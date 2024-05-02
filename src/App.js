@@ -17,6 +17,7 @@ const productsService = require("./services/products.service");
 const cartsService = require("./services/carts.service");
 const userModel = require("./models/user");
 const sessionController = require("./controllers/session.contoller");
+const { errorMiddleware } = require("./middlewares/errorHandling.middleware");
 require ('dotenv').config();
 
 const app = express();
@@ -71,6 +72,9 @@ app.use('/api/session', sessionRouter)
 
 
 const server = app.listen(port,()=>console.log(`Se ha levantado el servidor ${port}`))
+
+//Error Handler
+app.use(errorMiddleware)
 
 // Config Socket.io
 const io = new Server (server);

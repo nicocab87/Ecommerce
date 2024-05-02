@@ -1,6 +1,6 @@
 const {cartService} = require("../repositories/index");
 const {productService} = require("../repositories/index");
-const { generateProduct } = require("../utils");
+const { generateProduct } = require("../utils/generateMock.utils");
 
 
 class viewControler{
