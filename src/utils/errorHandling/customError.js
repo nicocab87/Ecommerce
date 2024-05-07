@@ -1,6 +1,6 @@
 const { errorTypes } = require("./errorTypes")
 
-export class CustomError extends Error {
+class CustomError extends Error {
     constructor({name="Error", cause, message, code=errorTypes.UNKOWN}){
         super(message)
         this.name=name,
@@ -8,3 +8,5 @@ export class CustomError extends Error {
         this.cause=cause
     }
 }
+
+module.exports = CustomError

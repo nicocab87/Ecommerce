@@ -61,6 +61,8 @@ router.get('/resetPassword', viewControler.goResetPassword)
 
 router.get('/mockingProducts', viewControler.getMocking)
 
+router.get('/loggerTest', viewControler.logger)
+
 router.get(`/:pid`, viewControler.goGetProductById)
 
 

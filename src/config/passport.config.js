@@ -1,7 +1,7 @@
 const passport = require("passport");
 const local = require("passport-local");
 const githubStategy = require ("passport-github2")
-const { createHash, isValidPassword } = require("../utils");
+const { createHash, isValidPassword } = require("../utils/utils");
 const userModel = require("../models/user");
 const { cartService } = require("../repositories");
 const { CustomError } = require("../utils/errorHandling/customError");

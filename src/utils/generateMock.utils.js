@@ -1,6 +1,6 @@
 const { faker } = require("@faker-js/faker");
 
-export const generateProduct = (number)=>{
+const generateProduct = (number)=>{
     let products = [];
 
     for (let i = 0; i <number; i++) {
@@ -20,3 +20,5 @@ export const generateProduct = (number)=>{
 
     return products
 }
+
+module.exports = generateProduct

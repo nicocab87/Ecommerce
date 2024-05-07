@@ -4,7 +4,8 @@
   "description": "",
   "main": "App.js",
   "scripts": {
-    "start": "nodemon src/App.js",
+    "dev": "set NODE_ENV=development& nodemon src/App.js",
+    "start": "set NODE_ENV=production& nodemon src/App.js",
     "test": "jest --watchAll --verbose",
     "watch-sass": "sass --watch src/public/style/main.scss:src/public/style/main.css"
   },
@@ -34,6 +35,7 @@
     "passport-local": "^1.0.0",
     "remixicon": "^4.2.0",
     "sass": "^1.71.1",
-    "socket.io": "^4.7.4"
+    "socket.io": "^4.7.4",
+    "winston": "^3.13.0"
   }
 }

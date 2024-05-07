@@ -17,7 +17,8 @@ const productsService = require("./services/products.service");
 const cartsService = require("./services/carts.service");
 const userModel = require("./models/user");
 const sessionController = require("./controllers/session.contoller");
-const { errorMiddleware } = require("./middlewares/errorHandling.middleware");
+const errorMiddleware = require("./middlewares/errorHandling.middleware");
+const addLoger  = require("./middlewares/addLogger.middleware");
 require ('dotenv').config();
 
 const app = express();
@@ -56,6 +57,7 @@ app.use(session({
 app.use(express.static(`${__dirname}/public`));   
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use(addLoger)
 
 // Passport
 initializePassport();
@@ -63,6 +65,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Routes
+
 
 app.use(`/`, viewsRouter);
 app.use(`/api/products`, productsRouter);

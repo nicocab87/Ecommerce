@@ -84,6 +84,17 @@ class viewControler{
         }
     }
 
+    static async logger(req, res){
+        
+        req.logger.fatal('Este es un Error fatal')
+        req.logger.error('Este es un Error')
+        req.logger.warning('Este es una advertencia')
+        req.logger.info('Este es info log')
+        req.logger.debug('Este es un debug log')
+
+        res.send({status:'success', message: 'Testeo de logger'})
+    }
+
     
 }
 

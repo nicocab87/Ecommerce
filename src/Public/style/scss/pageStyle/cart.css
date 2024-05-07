@@ -1,0 +1,9 @@
+.cartContainer {
+  display: flex;
+  background-color: aquamarine;
+}
+
+p {
+  color: aqua;
+  font-size: 1rem;
+}/*# sourceMappingURL=cart.css.map */

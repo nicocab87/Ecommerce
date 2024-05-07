@@ -1,6 +1,6 @@
 const { errorTypes } = require("../utils/errorHandling/errorTypes");
 
-export const errorMiddleware = (error, req, res, next)=>{
+const errorMiddleware = (error, req, res, next)=>{
     console.log(error.cause)
     switch (erro.code) {
         case errorTypes.INVALID_TYPE:
@@ -13,3 +13,5 @@ export const errorMiddleware = (error, req, res, next)=>{
             break;
     }
 }   
+
+module.exports = errorMiddleware

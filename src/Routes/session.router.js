@@ -1,6 +1,4 @@
 const { Router } = require("express");
-const userModel = require("../models/user");
-const { createHash, isValidPassword } = require("../utils");
 const passport = require("passport");
 const sessionController = require("../controllers/session.contoller");
 
