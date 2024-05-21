@@ -16,6 +16,10 @@ router.get('/logout', sessionController.logOut)
 
 router.post('/resetPassword', sessionController.resetPassword)
 
+router.get('/verifyToken/:passwordResetToken', sessionController.verifyToken)
+
+router.post('/changePassword', sessionController.changePassword)
+
 router.get('/github', passport.authenticate('github',{scope:['user:email']}, (req, res)=>{console.log('llegamos aca')}))
 
 router.get('/githubCallback', passport.authenticate('github', { failureRedirect: '/login' }), sessionController.githubCallback);

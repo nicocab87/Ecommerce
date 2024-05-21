@@ -1,14 +1,14 @@
-const resetPasswordForm = document.getElementById("resetPasswordForm");
+const changePassword = document.getElementById("changePassword")
 
-resetPasswordForm.addEventListener('submit', (e)=>{
+changePassword.addEventListener('submit', (e)=>{
     e.preventDefault();
 
-    const data = new FormData (resetPasswordForm);
+    const data = new FormData (changePassword);
     const obj = {};
 
     data.forEach((value, key) => obj[key] = value);
 
-    fetch('/api/session/resetPassword',{ 
+    fetch('/api/session/changePassword',{ 
     method: 'POST',
     body: JSON.stringify(obj),
     headers: {
@@ -20,8 +20,8 @@ resetPasswordForm.addEventListener('submit', (e)=>{
         }else{
             Swal.fire({
                 icon: "error",
-                title: "Usuario inexistente",
-                text: "Intente nuevamente!",
+                title: "No se puede introducir la misma contraseña",
+                text: "Intente con una nueva!",
             });
         }
     }).then(response=>{

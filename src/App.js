@@ -47,7 +47,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-        mongoUrl:`mongodb+srv://nicolasferreyram:${mongoPassword}@cluster0.hzrrjcf.mongodb.net/`,
+        mongoUrl:`mongodb+srv://nicolasferreyram:${mongoPassword}@cluster0.hzrrjcf.mongodb.net/`, //poner en .env <-- (mongo.url )
         ttl: 60*60
     })
 }))
@@ -82,7 +82,7 @@ app.use(errorMiddleware)
 // Config Socket.io
 const io = new Server (server);
 const productService = new productsService()
-const cartService = new cartsService()
+//const cartService = new cartsService()
 let messages = []
 
 io.on('connection', (socket)=>{

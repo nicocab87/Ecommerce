@@ -29,9 +29,16 @@ const isAdmin = (req, res, next) => {
     } 
 }
 
+const applyRolePolicy = (roles)=>{
+    return (res, req, next)=>{
+        if(role.includes("public")) {return next()}
+    }
+}
+
 module.exports={
     checkRole,
     publicAccess,
     privateAccess,
-    isAdmin
+    isAdmin,
+    applyRolePolicy
 }

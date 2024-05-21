@@ -1,6 +1,8 @@
-const UserDTO = require("../DTOs/userDTO")
+const { createHash, isValidPassword } = require("../utils/utils")
+const { jwtSecret } = require("../config/config")
 const userModel = require("../models/user")
-
+const { mailingService } = require("../repositories")
+const jwt = require("jsonwebtoken")
 class sessionController{
     static async register(req, res){
         res.send({status: 'success', message: 'user resgistered'})
@@ -40,20 +42,55 @@ class sessionController{
     }
 
     static async resetPassword(req, res){
-        const {email, password} = req.body;
+        const {email} = req.body;
+        if(!email){return res.status(400).send({status:'error', error: 'Missing data'})}
+    
+        try {
+            const user = await userModel.findOne({email})
+            if(!user){
+                return res.status(401).send({status:'error', error: 'User not found'})
+            }
+    
+            await mailingService.sendPassResetEmail(email,user)
+    
+            res.send({status:'succes', message:'Password reset'})
+        } catch (error) {
+            res.status(500).send({status:'error', error:error.message})
+        }
+    }
 
-        if(!email || !password){
-            return res.status(400).send({status:'error', error: 'Missing data'})
+    static async verifyToken(req, res){
+        const {passwordResetToken} = req.params
+        try {
+            jwt.verify(passwordResetToken, jwtSecret, (e)=>{
+                if(e){
+                    return res.redirect('/resetPassword')
+                }
+                res.redirect('/changePassword')
+            })
+            //res.send({payload:'true'})
+
+        } catch (error) {
+            res.status(500).send({status:'error', error:error.message})
         }
+    }
+
+    static async changePassword(req, res){
+        const {email, password} = req.body;
+        if(!email || !password){return res.status(400).send({status:'error', error: 'Missing data'})}
     
-        const user = await userModel.findOne({email})
-        if(!user){
-            return res.status(401).send({status:'error', error: 'User not found'})
+        try {
+            const user = await userModel.findOne({email})
+            if(!user){return res.status(401).send({status:'error', error: 'User not found'})}
+            if(isValidPassword(user, password)){ return res.status(400).send({status:'Error', error:'No se puede introducir la misma contraseña' })}
+            const hashedPassword = createHash(password);
+            user.password = hashedPassword
+            const userUpdolated = await userModel.updateOne({_id:user._id}, user)
+
+            res.send({status:'success', payload: userUpdolated})
+        } catch (error) {
+            res.status(500).send({status:'error', error:error.message})
         }
-    
-        const hashedPassword = createHash(password);
-        const result = await userModel.updateOne({_id:user.id}, {$set:{password: hashedPassword}})
-        res.send({status:'succes', message:'Password reset', details: result})
     }
 
     static async githubCallback (req, res){

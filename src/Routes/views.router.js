@@ -51,9 +51,9 @@ router.get('/chat', privateAccess , viewControler.goChat)
 
 router.get('/carts/:cid', viewControler.goCart)
 
-router.get('/register', publicAccess, viewControler.goRegister)
+router.get('/register', viewControler.goRegister)
 
-router.get('/login', publicAccess, viewControler.goLogin)
+router.get('/login', viewControler.goLogin)
 
 router.get('/profile', privateAccess, viewControler.goProfile)
 
@@ -62,6 +62,8 @@ router.get('/resetPassword', viewControler.goResetPassword)
 router.get('/mockingProducts', viewControler.getMocking)
 
 router.get('/loggerTest', viewControler.logger)
+
+router.get('/changePassword', viewControler.changePassword )
 
 router.get(`/:pid`, viewControler.goGetProductById)
 

@@ -64,6 +64,10 @@ class viewControler{
         res.render('resetPassword', {})
     }
 
+    static async changePassword(req, res){
+        res.render('changePassword')
+    }
+
     static async getMocking(req,res){
         try {
             const data = generateProduct(100)
