@@ -39,11 +39,10 @@ class productsController{
     static async create (req, res){
         const product = req.body
         try {
-            //const methods = Object.keys(productsService);
-            //console.log(methods,'a');
-            //console.log(productService.create, 'funcion?')
+            if(req.user.role == 'premium'){
+                req.body.owner = req.user.email
+            }
             const data = await productService.create(product)
-            console.log(data, 'data ')
             res.send({status:`succes`, payload: data})
 
         } catch (error) {
@@ -68,7 +67,11 @@ class productsController{
     static async delete(req, res){
         const productId = req.params.pid
         try {
-            //const data = await .deleteProduct(productId)
+            const product = await productService.getById(productId)
+            if(!req.user.rol =='premium' && product.owner !=req.user.email){
+                throw new Error('No puede borrar este producto')
+            }
+    
             res.send({status:`succes`, payload: await productService.delete(productId)})
         } catch (error) {
             res.status(404).send(error)

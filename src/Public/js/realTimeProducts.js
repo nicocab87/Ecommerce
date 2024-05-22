@@ -11,13 +11,30 @@ document.addEventListener("DOMContentLoaded", function() {
         e.preventDefault();
     
         const formData = new FormData(createProductForm);
-            const newProduct = {};
+        const newProduct = {};
     
-            formData.forEach((value, key) => {
-                newProduct[key]=value.trim()
-            });
-            
-            socket.emit('addProduct', newProduct)
+        formData.forEach((value, key) => {
+            newProduct[key]=value
+        });
+
+        fetch('/realtimeproducts',{ 
+            method: 'POST',
+            body: JSON.stringify(newProduct),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+            }).then(res=>{
+                if(res.status == 200) {
+                    console.log('hay 200?')
+                    socket.emit('addProduct')
+                }else{
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error en la creación del producto",
+                        text: "Intente nuevamente!",
+                    });
+                }
+            })
     });
     
     deleteButton.forEach(button => {

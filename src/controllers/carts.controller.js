@@ -1,4 +1,4 @@
-const {cartService} = require("../repositories/index");
+const {cartService, productService} = require("../repositories/index");
 
 class cartsController{
     static async create (req, res){
@@ -33,6 +33,10 @@ class cartsController{
         const idCart = req.params.cid;
         const idProduct = req.params.pid;
         try {
+            const product = await productService.getById(idProduct)
+            if(req.user.rol =='premium' && product.owner == req.user.email){
+                throw new Error('No puede agergar productos que le pertenece')
+            }
             const data = await cartService.addProduct(idCart, idProduct)
             res.send({status: "succeses", data})
         } catch (error) {

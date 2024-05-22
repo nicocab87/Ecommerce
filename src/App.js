@@ -1,11 +1,12 @@
 const express = require("express");
 const handlebars = require("express-handlebars");
 const {Server} = require ("socket.io"); 
-const productsRouter = require ("./Routes/Products.router");
+const productsRouter = require ("./routes/Products.router");
 const cartRouter = require("./Routes/Carts.router");
-const realTimeRouter = require ("./Routes/RealTimeProducts.router");
+const realTimeRouter = require ("./routes/RealTimeProducts.router");
 const viewsRouter = require ("./routes/views.router")
 const sessionRouter = require ("./routes/session.router");
+const userRouter = require ('./routes/users.router');
 const mongoose = require("mongoose");
 const chat_manager = require("./Routes/chat.router");
 const session = require("express-session");
@@ -13,12 +14,9 @@ const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const initializePassport = require("./config/passport.config");
 const { sessionSecret, mongoPassword, port } = require("./config/config");
-const productsService = require("./services/products.service");
-const cartsService = require("./services/carts.service");
-const userModel = require("./models/user");
-const sessionController = require("./controllers/session.contoller");
 const errorMiddleware = require("./middlewares/errorHandling.middleware");
 const addLoger  = require("./middlewares/addLogger.middleware");
+const { productService } = require("./repositories");
 require ('dotenv').config();
 
 const app = express();
@@ -71,7 +69,8 @@ app.use(`/`, viewsRouter);
 app.use(`/api/products`, productsRouter);
 app.use(`/api/carts`, cartRouter);
 app.use(`/realtimeproducts`, realTimeRouter);
-app.use('/api/session', sessionRouter)
+app.use('/api/session', sessionRouter);
+app.use('/api/user',userRouter)
 
 
 const server = app.listen(port,()=>console.log(`Se ha levantado el servidor ${port}`))
@@ -81,8 +80,6 @@ app.use(errorMiddleware)
 
 // Config Socket.io
 const io = new Server (server);
-const productService = new productsService()
-//const cartService = new cartsService()
 let messages = []
 
 io.on('connection', (socket)=>{
@@ -92,9 +89,7 @@ io.on('connection', (socket)=>{
         console.log(`${socket.id} desconectado`);
     });
 
-    socket.on('addProduct', async (newProductData)=>{
-        await productService.create(newProductData);
-
+    socket.on('addProduct', async ()=>{
         const data = await productService.getAll()
 
         io.emit('updateProduct', data);

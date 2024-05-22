@@ -1,7 +1,7 @@
 const {Router} = require ("express");
 const productsService = require("../services/products.service")
 const viewControler = require("../controllers/view.controller");
-const { privateAccess, publicAccess, isAdmin } = require("../middlewares/checkRole.middleware");
+const { privateAccess, publicAccess, isAdmin, checkRole } = require("../middlewares/checkRole.middleware");
 
 const productService = new productsService()
 
@@ -45,7 +45,7 @@ router.get('/products', async (req, res) => {
     res.render('products',{product, ...rest, nextLink, prevLink, userData})
 })
 
-router.get('/realtimeproducts', isAdmin, viewControler.goRealTimeProducts)
+router.get('/realtimeproducts', checkRole(['premium', 'admin']), viewControler.goRealTimeProducts)
 
 router.get('/chat', privateAccess , viewControler.goChat)
 

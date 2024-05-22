@@ -1,7 +1,11 @@
-const checkRole = (role) =>(req,res,next)=>{
+const checkRole = (roles) =>(req,res,next)=>{
     const user=req.user
 
-    if(user.role != role){
+    if(!Array.isArray(roles)){
+        roles=[roles]
+    }
+
+    if(!roles.includes(user.rol)){
         return res.status(400).send({status:'Error', error:'No tienes la credencial para acceder a este sitio'})
     }
     next()

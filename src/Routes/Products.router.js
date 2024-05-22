@@ -6,7 +6,7 @@ const router = Router();
 
 router.get('/', productsController.get)
 
-router.post('/', checkRole('admin'),productsController.create)
+router.post('/', checkRole(['premium','admin']),productsController.create)
 
 router.put(`/:pid`, checkRole('admin') ,productsController.update)
 
