@@ -17,6 +17,8 @@ const { sessionSecret, mongoPassword, port } = require("./config/config");
 const errorMiddleware = require("./middlewares/errorHandling.middleware");
 const addLoger  = require("./middlewares/addLogger.middleware");
 const { productService } = require("./repositories");
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUiExpress = require("swagger-ui-express");
 require ('dotenv').config();
 
 const app = express();
@@ -50,6 +52,20 @@ app.use(session({
     })
 }))
 
+// Swagger Documentation
+const swaggerOptions= {
+    definition: {
+        openapi : '3.0.1',
+        info: {
+            title:'TecnoZone Api documentation',
+            description:'Tecnozone api'
+        }
+    },
+    apis: [`${__dirname}/docs/**/*.yaml`]
+}
+
+const specs = swaggerJSDoc(swaggerOptions)
+app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 // Middleware
 app.use(express.static(`${__dirname}/public`));   

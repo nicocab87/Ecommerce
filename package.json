@@ -39,6 +39,8 @@
     "remixicon": "^4.2.0",
     "sass": "^1.71.1",
     "socket.io": "^4.7.4",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "winston": "^3.13.0"
   }
 }

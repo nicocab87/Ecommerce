@@ -1,0 +1,189 @@
+paths: 
+  /api/carts/:
+    get:
+      summary: Obtener todos los carritos disponibles
+      tags: 
+        - Carts
+      responses: 
+        "200":
+          description: Los carritos fueron obtenidos de manera correcta.
+          content: 
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cart'
+        "500":
+          description: Error en el servidor
+
+    post:
+      summary: Crear un carrito nuevo (se utiliza automaticamente cuando se crea un usuario nuevo)
+      tags: 
+        - Carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/requestBodies/Cart'
+      responses: 
+        "200":
+          description: El carrito fue creado correctamente
+        "400":
+          description: Error en la solicitud
+        "500":
+          description: Error en el servidor
+  
+  /api/carts/{cid}:
+    get:
+      summary: Obtener un carrito a través de su id
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito solicitado
+          schema:
+            type: string
+      responses: 
+        "200":
+          description: El carrito fue actualizado correctamente
+        "400":
+          description: Error en la solicitud
+        "500":
+          description: Error en el servidor
+
+    delete:
+      summary: Elimina el carrito seleccionado por su id
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito a eliminar
+          schema:
+            type: string
+      responses: 
+        "200":
+          description: El carrito fue eliminado correctamente
+        "400":
+          description: Error en la solicitud
+        "500":
+          description: Error en el servidor
+
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Agregar un producto a un carrito
+      tags: 
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito al que se le agrega el producto
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: id del producto a agregar
+          schema:
+            type: string
+      responses: 
+        "200":
+          description: El producto fue agregado correctamente al carrito
+        "400":
+          description: Error en la solicitud
+        "500":
+          description: Error en el servidor
+
+    put:
+      summary: Modificar un producto de un carrito
+      tags: 
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito al que se le modifica el producto
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: id del producto a modificar
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/requestBodies/Cart'
+      responses: 
+        "200":
+          description: El producto fue modificado correctamente del carrito
+        "400":
+          description: Error en la solicitud
+        "500":
+          description: Error en el servidor
+
+    delete:
+      summary: Eliminar un producto de un carrito
+      tags: 
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito al que se le elimina el producto
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: id del producto a eliminar
+          schema:
+            type: string
+      responses: 
+        "200":
+          description: El carrito fue eliminado correctamente
+        "400":
+          description: Error en la solicitud
+        "500":
+          description: Error en el servidor
+
+  /api/carts/{cid}/purchase:
+    get:
+      summary: Se genera un ticket con los productos que poseia el carrito, donde previamente se verifica la existencia del stock del mismo
+      tags: 
+        - Carts
+      responses: 
+        "200":
+          description: La operación se realizó de manera correcta.
+        "500":
+          description: Error en el servidor
+
+components:
+  schemas: 
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: string
+        product: 
+          type: string
+        quantity: 
+          type: number
+
+  requestBodies:
+    Cart:
+      type: object
+      properties:
+        product: 
+          type: string
+        number: 
+          type: number
+

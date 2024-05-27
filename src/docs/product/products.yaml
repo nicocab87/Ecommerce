@@ -1,0 +1,166 @@
+paths: 
+  /api/products/:
+    get:
+      summary: Obtener todos los productos disponibles
+      tags: 
+        - Products
+      responses: 
+        "200":
+          description: Los productos fueron obtenidos de manera correcta.
+          content: 
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        "500":
+          description: Error en el servidor
+
+    post:
+      summary: Crear un producto nuevo
+      tags: 
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/requestBodies/Product'
+      responses: 
+        "200":
+          description: El producto fue creado correctamente
+        "400":
+          description: Error en la solicitud
+        "500":
+          description: Error en el servidor
+
+  /api/products/{pid}:
+    put:
+      summary: Actualizar los datos de un producto
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: id del producto a modificar
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/requestBodies/updateProduct'
+      responses: 
+        "200":
+          description: El producto fue actualizado correctamente
+        "400":
+          description: Error en la solicitud
+        "500":
+          description: Error en el servidor
+
+    delete:
+      summary: Elimina el producto seleccionado por su id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: id del producto a eliminar
+          schema:
+            type: string
+      responses: 
+        "200":
+          description: El producto fue actualizado correctamente
+        "400":
+          description: Error en la solicitud
+        "500":
+          description: Error en el servidor
+
+
+
+
+
+components:
+  schemas: 
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+        title: 
+          type: string
+        category: 
+          type: string
+        description: 
+          type: string
+        thumbnail:
+          type: array
+          items:
+            type: string
+            format: uri
+        price:
+          type: number
+          format: float
+        code: 
+          type: string
+        stock: 
+          type: integer
+        status:
+          type: boolean
+        owner:
+          type: string
+
+  requestBodies:
+    Product:
+      type: object
+      properties:
+        title: 
+          type: string
+        category: 
+          type: string
+        description: 
+          type: string
+        thumbnail:
+          type: array
+          items:
+            type: string
+            format: uri
+        price:
+          type: number
+          format: float
+        code: 
+          type: string
+        stock: 
+          type: integer
+      required:
+        - title
+        - category
+        - description
+        - price
+        - code
+        - stock
+
+    updateProduct:
+      type: object
+      properties:
+        title: 
+          type: string
+        category: 
+          type: string
+        description: 
+          type: string
+        thumbnail:
+          type: array
+          items:
+            type: string
+            format: uri
+        price:
+          type: number
+          format: float
+        code: 
+          type: string
+        stock: 
+          type: integer
