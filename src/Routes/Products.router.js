@@ -8,7 +8,7 @@ router.get('/', productsController.get)
 
 router.post('/', checkRole(['premium','admin']),productsController.create)
 
-router.put(`/:pid`, checkRole('admin') ,productsController.update)
+router.put(`/:pid`,productsController.update)
 
 router.delete('/:pid', checkRole('admin') ,productsController.delete)
 

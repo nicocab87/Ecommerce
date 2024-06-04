@@ -13,7 +13,7 @@ class sessionController{
     }
 
     static async login(req, res){
-        try {   
+        try {  
             const user = req.user
             req.session.user = {
                 name: `${user.first_name} ${user.last_name}`,

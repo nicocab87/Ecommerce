@@ -1,8 +1,8 @@
-const { errorTypes } = require("../utils/errorHandling/errorTypes");
+const errorTypes = require("../utils/errorHandling/errorTypes");
 
 const errorMiddleware = (error, req, res, next)=>{
     console.log(error.cause)
-    switch (erro.code) {
+    switch (error.code) {
         case errorTypes.INVALID_TYPE:
             res.status(400).send({status:'Error', error: error.name})
             break;

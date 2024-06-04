@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "set NODE_ENV=development& nodemon src/App.js",
     "start": "set NODE_ENV=production& nodemon src/App.js",
-    "test": "jest --watchAll --verbose",
+    "test": "mocha src/test --recursive",
     "watch-sass": "sass --watch src/public/style/main.scss:src/public/style/main.css"
   },
   "keywords": [],
@@ -42,5 +42,10 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
     "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "mocha": "^10.4.0",
+    "supertest": "^7.0.0"
   }
 }

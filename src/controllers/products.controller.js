@@ -1,4 +1,5 @@
-const productService = require("../repositories/index")
+const { productService } = require("../repositories")
+
 
 
 class productsController{

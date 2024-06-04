@@ -1,11 +1,11 @@
-class productsService{
+class ProductsService{
 
     constructor (dao){
-        if (!productsService.instance) {
+        if (!ProductsService.instance) {
             this.dao = dao;
-            productsService.instance = this;
+            ProductsService.instance = this;
         }
-        return productsService.instance;
+        return ProductsService.instance;
     }
 
     create(product){
@@ -34,4 +34,4 @@ class productsService{
     
 }
 
-module.exports = productsService
+module.exports = ProductsService

@@ -4,7 +4,7 @@ const { checkRole } = require("../middlewares/checkRole.middleware");
 
 const router = Router();
 
-router.post(`/`, checkRole('user') ,cartsController.create)
+router.post(`/`, /*checkRole('user'), */ cartsController.create)
 
 router.get(`/`, cartsController.get)
 
