@@ -55,6 +55,8 @@ const initializePassport = ()=>{
                 return done(null,false)
             }
 
+            user.last_conneection = new Date().toLocaleDateString()
+
             return done(null, user)
 
         } catch (error) {

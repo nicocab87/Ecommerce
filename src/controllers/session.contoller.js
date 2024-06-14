@@ -23,6 +23,8 @@ class sessionController{
                 cart:user.cart
             }
 
+            
+
             res.send({status:'success', payload: req.session.user, message: 'success'})
         } catch (error) {
             console.error('Error en el inicio de sesión:', error);

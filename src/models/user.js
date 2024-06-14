@@ -17,6 +17,21 @@ const USerSchema = new mongoose.Schema({
     rol: {
         type: String,
         default: 'user'
+    },
+    documents: {
+        type: [{
+            name: String,
+            reference: String
+        }],
+        default: []
+    },
+    last_conneection: {
+        type: Date,
+        default: null
+    },
+    profilePicture: {
+        type: String,
+        default: null
     }
 })
 
