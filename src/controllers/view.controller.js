@@ -104,6 +104,15 @@ class viewControler{
         }
     } 
 
+    static async purchaseSuccess (req, res){
+        try {
+            
+            res.render('purchase-success')
+        } catch (error) {
+            res.status(404).send(error)
+        }
+    } 
+
     static async logger(req, res){
         
         req.logger.fatal('Este es un Error fatal')

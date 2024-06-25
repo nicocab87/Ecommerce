@@ -10,6 +10,6 @@ router.post('/', checkRole(['premium','admin']),productsController.create)
 
 router.put(`/:pid`,productsController.update)
 
-router.delete('/:pid', checkRole('admin') ,productsController.delete)
+router.delete('/:pid', checkRole(['admin']) ,productsController.delete)
 
 module.exports = router

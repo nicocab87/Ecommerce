@@ -67,6 +67,9 @@ router.get('/changePassword', viewControler.changePassword )
 
 router.get('/user-manager', viewControler.getUserManager )
 
+router.get('/purchase-success', viewControler.purchaseSuccess )
+
+
 router.get(`/:pid`, viewControler.goGetProductById)
 
 

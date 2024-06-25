@@ -1,4 +1,4 @@
-const { productService } = require("../repositories")
+const { productService, mailingService } = require("../repositories")
 
 
 
@@ -71,6 +71,10 @@ class productsController{
             const product = await productService.getById(productId)
             if(!req.user.rol =='premium' && product.owner !=req.user.email){
                 throw new Error('No puede borrar este producto')
+            }
+
+            if(product.owner &&  product.owner != 'admin'){
+                mailingService.sendDeletedPremiumProduct(product.owner, product.title)
             }
     
             res.send({status:`succes`, payload: await productService.delete(productId)})

@@ -40,6 +40,19 @@ class MailingService{
             `
         })
     }
+
+    async sendDeletedPremiumProduct(destinationMail, itemTitle){
+        await transport.sendMail({
+            from: `Node Service ${mailing.auth.user}`,
+            to: destinationMail,
+            subject:`Acount Deleted`,
+            html:`
+                <div>
+                    <h1> Su producto ${itemTitle}ha sido eleminado</h1>
+                </div>
+            `
+        })
+    }
 }
 
 module.exports = MailingService

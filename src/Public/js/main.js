@@ -46,7 +46,7 @@ fetch('/api/session/current')
                     fetch(`/api/carts/${data.user.cart}/purchase`)
                         .then(res=>res.json())
                         .then(data=>{
-                            window.location.replace(`/`)
+                            window.location.replace(`/purchase-success`)
                         })
                 })
             }
