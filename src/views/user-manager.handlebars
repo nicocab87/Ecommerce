@@ -1,0 +1,21 @@
+<div>
+    <h1>User Manager</h1>
+
+    {{#each user}}
+        <div style="background: gray; margin:5px">
+            <p>first Name:{{this.first_name}}</p>
+            <p>email:{{this.email}}</p>
+            <p>rol:{{this.rol}}</p>
+            <select name="" id="select-{{this._id}}">
+                {{#if this.isUser}}<option value="user" selected>user</option>{{else}}<option value="user">user</option>{{/if}}
+                {{#if this.isUser}}<option value="premium" selected>premium</option>{{else}}<option value="premium">premium</option>{{/if}}
+                {{#if this.isUser}}<option value="admin" selected>admin</option>{{else}}<option value="admin">admin</option>{{/if}}
+            </select>
+            <button onclick="updateUser('{{this._id}}')">Update Rol</button>
+            <button onclick="deleteUser('{{this._id}}')">Delete User</button>
+        </div>
+    {{/each}}
+</div>
+
+<script src="/js/userManager.js"></script>
+

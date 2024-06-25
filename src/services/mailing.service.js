@@ -25,6 +25,21 @@ class MailingService{
             `
         })
     }
+
+    async sendDeleteAcountEmail(destinationMail, user){
+        const payload = {...user}
+        const passwordResetTocken = jwt.sign(payload,jwtSecret,{expiresIn:'1h'})
+        await transport.sendMail({
+            from: `Node Service ${mailing.auth.user}`,
+            to: destinationMail,
+            subject:`Acount Deleted`,
+            html:`
+                <div>
+                    <h1> Su cuenta ha sido eleminada por inactividad</h1>
+                </div>
+            `
+        })
+    }
 }
 
 module.exports = MailingService

@@ -5,9 +5,11 @@ const upload = require("../middlewares/fileUpload.middleware");
 
 const router = Router();
 
-router.get('/premium/:userId', UserController.changeRole)
+router.put('/changeRol/:userId', UserController.changeRole)
+router.delete('/deleteUser/:userId', checkRole(['admin']) ,UserController.deleteUser)
 router.get('/:uid/documents',upload.array('document'), UserController.uploadDocument)
 router.post('/:uid/profilePicture', upload.single('picture'), UserController.uploadPicture)
+router.delete('/',checkRole(['admin']), UserController.deleteUnactive)
 
 
 module.exports = router

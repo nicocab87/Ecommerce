@@ -65,6 +65,8 @@ router.get('/loggerTest', viewControler.logger)
 
 router.get('/changePassword', viewControler.changePassword )
 
+router.get('/user-manager', viewControler.getUserManager )
+
 router.get(`/:pid`, viewControler.goGetProductById)
 
 

@@ -1,3 +1,4 @@
+const userModel = require("../models/user");
 const {cartService} = require("../repositories/index");
 const {productService} = require("../repositories/index");
 const { generateProduct } = require("../utils/generateMock.utils");
@@ -87,6 +88,21 @@ class viewControler{
             res.status(404).send(error)
         }
     }
+
+    static async getUserManager (req, res){
+        try {
+            const user = await userModel.find({})
+            const userWithRoleFlag = user.map(user=>{
+                user.isUser= user.role == 'user'
+                user.isPremium= user.role == 'premium'
+                user.isAdmin= user.role == 'admin'
+                return user
+            })
+            res.render('user-manager',{user:userWithRoleFlag})
+        } catch (error) {
+            res.status(404).send(error)
+        }
+    } 
 
     static async logger(req, res){
         
