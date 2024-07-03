@@ -13,7 +13,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const initializePassport = require("./config/passport.config");
-const { sessionSecret, mongoPassword, port } = require("./config/config");
+const { sessionSecret, mongoPassword, port, mongoLink } = require("./config/config");
 const errorMiddleware = require("./middlewares/errorHandling.middleware");
 const addLoger  = require("./middlewares/addLogger.middleware");
 const { productService } = require("./repositories");
@@ -36,7 +36,7 @@ app.set('views', `${__dirname}/views`);
 app.set(`view engine`, `handlebars`);
 
 // database connection
-mongoose.connect(`mongodb+srv://nicolasferreyram:${mongoPassword}@cluster0.hzrrjcf.mongodb.net/`).then(()=>{
+mongoose.connect(mongoLink).then(()=>{
     console.log('Mongoose conected')
 });
 
@@ -47,7 +47,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-        mongoUrl:`mongodb+srv://nicolasferreyram:${mongoPassword}@cluster0.hzrrjcf.mongodb.net/`, //poner en .env <-- (mongo.url )
+        mongoUrl: mongoLink,
         ttl: 60*60
     })
 }))
