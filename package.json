@@ -8,7 +8,7 @@
     "start": "node src/App.js",
     "test": "mocha src/test --recursive",
     "watch-sass": "sass --watch src/public/style/main.scss:src/public/style/main.css",
-    "postinstall": "ls -R src/routes"
+    "postinstall": "ls -R src/Routes"
   },
   "keywords": [],
   "author": "",
