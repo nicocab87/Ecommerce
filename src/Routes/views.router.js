@@ -15,7 +15,7 @@ router.get('/', viewControler.goHome)
 router.get('/products', async (req, res) => {
 
     let page = req.query.page || 1
-    let limit = req.query.limit || 5
+    let limit = req.query.limit || 7
     let query = req.query.query
     let querySort = req.query.sort
     let opt = {}
@@ -68,7 +68,6 @@ router.get('/changePassword', viewControler.changePassword )
 router.get('/user-manager', viewControler.getUserManager )
 
 router.get('/purchase-success', viewControler.purchaseSuccess )
-
 
 router.get(`/:pid`, viewControler.goGetProductById)
 

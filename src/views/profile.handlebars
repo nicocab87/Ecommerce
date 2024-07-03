@@ -1,10 +1,32 @@
-<div class="profileContainer">
+<section class="profileContainer">
+    <h2 class="profileTitle">Información Personal</h2>
     <div class="profileData">
-        <p class="subtitle is-3"> Nombre: {{user.name}} </p>
-        <p class="subtitle is-3">Email: {{user.email}}</p>
-        <p class="subtitle is-3">Edad: {{user.age}}</p>
-        <p class="subtitle is-3">Tu rol: {{user.rol}}</p>
+        <p><strong>Nombre:</strong> {{user.name}}</p>
+        <p><strong>Correo Electrónico:</strong> {{user.email}}</p>
+        <p><strong>Edad:</strong> {{user.age}}</p>
+        <p><strong>Rol:</strong> {{user.rol}}</p>
     </div>
+    <figure class="image is-128x128">
+        <img class="is-rounded" src="{{user.profilePicture}}" />
+        <form id="uploadForm">
+            <div class="file">
+                <label class="file-label">
+                    <input class="file-input" type="file" name="resume" id="fileInput" />
+                    <span class="file-cta">
+                        <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">Primary file…</span>
+                    </span>
+                </label>
+            </div>
+            <button type="submit">Cambiar foto</button>
+        </form>
+    </figure>
+    <a class="profileCloseSesion" href="/api/session/logout"> <button class="button">Cerrar sesión</button> </a>
+</section>
 
-    <a href="/api/session/logout"> <button class="button">Cerrar sesión</button> </a>
-</div>
+<script src="/js/profile.js"></script>
+
+{{!-- <img src="https://cdn-icons-png.flaticon.com/512/848/848006.png" width="256" height="256"
+    alt="usuario icono gratis" title="usuario icono gratis"> --}}

@@ -20,10 +20,9 @@ class sessionController{
                 email: user.email,
                 age: user.age,
                 rol: user.rol,
-                cart:user.cart
+                cart: user.cart,
+                profilePicture: user.profilePicture,
             }
-
-            
 
             res.send({status:'success', payload: req.session.user, message: 'success'})
         } catch (error) {
@@ -110,12 +109,26 @@ class sessionController{
     }
 
     static async current(req, res){
-        if(req.session){
-            //const userDTO = new UserDTO(req.session.user)
-            res.send({user: req.session.user})
-        }else{
-            console.error('No se ha iniciado ninguna sesión')
-        }    
+        try {
+            if(req.session){
+                const user = req.user
+                
+                req.session.user = {
+                    name:user.first_name,
+                    email: user.email,
+                    age: user.age,
+                    rol: user.rol,
+                    id: user._id,
+                    cart: user.cart,
+                    profilePicture: user.profilePicture
+                }
+                res.send({user: req.session.user})
+            }else{
+                console.error('No se ha iniciado ninguna sesión')
+            }    
+        } catch (error) {
+            res.status(500).json({ error: 'Error en el servidor' });
+        }
     }
 
 }

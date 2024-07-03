@@ -63,9 +63,9 @@ class UserController{
     }
 
     static async uploadPicture(req, res){
+        console.log('aca')
         const userId = req.params
         const profilePicture = req.file
-
         try {
             const result = await userModel.updateOne({_id: userId, profilePicture})
 
