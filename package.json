@@ -5,7 +5,7 @@
   "main": "App.js",
   "scripts": {
     "dev": "set NODE_ENV=development& nodemon src/App.js",
-    "start": "set NODE_ENV=production& nodemon src/App.js",
+    "start": "set NODE_ENV=production& node src/App.js",
     "test": "mocha src/test --recursive",
     "watch-sass": "sass --watch src/public/style/main.scss:src/public/style/main.css"
   },
