@@ -7,7 +7,8 @@
     "dev": "set NODE_ENV=development& nodemon src/App.js",
     "start": "node src/App.js",
     "test": "mocha src/test --recursive",
-    "watch-sass": "sass --watch src/public/style/main.scss:src/public/style/main.css"
+    "watch-sass": "sass --watch src/public/style/main.scss:src/public/style/main.css",
+    "postinstall": "ls -R src/routes"
   },
   "keywords": [],
   "author": "",
