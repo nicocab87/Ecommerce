@@ -1,7 +1,7 @@
 const express = require("express");
 const handlebars = require("express-handlebars");
 const {Server} = require ("socket.io"); 
-const productsRouter = require ("./routes/products.router");
+const productsRouter = require("./routes/products.router")
 const cartRouter = require("./routes/carts.router");
 const realTimeRouter = require ("./routes/realTimeProducts.router");
 const viewsRouter = require ("./routes/views.router")
