@@ -4,6 +4,7 @@ let cartId;
 
 // Elements
 const buttonsAddToCart = document.querySelectorAll(".buttonAddToCart");
+const buttonDetails = document.querySelectorAll(".buttonDetails")
 
 // Swal Creation
 const Toast = Swal.mixin({
@@ -50,4 +51,13 @@ buttonsAddToCart.forEach(button => {
             })
     });
 });
+
+buttonDetails.forEach(button => {
+    button.addEventListener('click', async() => {
+        const detailsId = button.dataset.detailsId;
+        console.log(detailsId,'detailsID')
+        window.location.href = `/details/${detailsId}`
+    })
+})
+
 

@@ -7,6 +7,7 @@ const realTimeRouter = require ("./Routes/RealTimeProducts.router");
 const viewsRouter = require ("./Routes/views.router")
 const sessionRouter = require ("./Routes/session.router");
 const userRouter = require ('./Routes/users.router');
+const paymentRouter = require("./Routes/payment.router");
 const mongoose = require("mongoose");
 const chat_manager = require("./Routes/chat.router");
 const session = require("express-session");
@@ -19,6 +20,7 @@ const addLoger  = require("./middlewares/addLogger.middleware");
 const { productService } = require("./repositories");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUiExpress = require("swagger-ui-express");
+const cors = require("cors")
 require ('dotenv').config();
 
 const app = express();
@@ -72,6 +74,7 @@ app.use(express.static(`${__dirname}/public`));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(addLoger)
+app.use(cors())
 
 // Passport
 initializePassport();
@@ -87,6 +90,7 @@ app.use(`/api/carts`, cartRouter);
 app.use(`/realtimeproducts`, realTimeRouter);
 app.use('/api/session', sessionRouter);
 app.use('/api/user',userRouter)
+app.use('/api/payments', paymentRouter)
 
 
 const server = app.listen(port,()=>console.log(`Se ha levantado el servidor ${port}`))

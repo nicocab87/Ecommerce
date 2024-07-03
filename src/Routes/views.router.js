@@ -69,7 +69,7 @@ router.get('/user-manager', viewControler.getUserManager )
 
 router.get('/purchase-success', viewControler.purchaseSuccess )
 
-router.get(`/:pid`, viewControler.goGetProductById)
+router.get(`/details/:pid`, viewControler.goGetProductById)
 
 
 

@@ -1,0 +1,17 @@
+<div class="productDetail">
+    <section class="upLeft">
+        <p class="productCategory">Categoria:{{product.category}}</p>
+        <a href="/products"><button class="button">Volver</button></a>
+    </section>
+    
+    <h1 class="productTitle">{{product.title}}</h1>
+    <h3 class="productDescription">{{product.description}}</h3>
+    <img src="{{product.thumbnail}}" alt="{{product.title}}" class="productImage">
+    <section class="productPay">
+        <h4 class="productPrice">${{product.price}}</h4>
+        <button type="button" class="btn btn-outline-success buttonAddToCart" data-product-id="{{this._id}}">Agregar al carrito</button>
+    </section>
+</div> 
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/productDetail.js"></script>

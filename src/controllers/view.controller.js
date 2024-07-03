@@ -80,10 +80,10 @@ class viewControler{
 
     static async goGetProductById (req, res){
         const productId = req.params.pid
-
         try {
-        const dataToRender = await productService.getById(productId)
-        res.render('home',{dataToRender})
+        const product = await productService.getById(productId)
+        console.log(product)
+        res.render('products-details', {product})
         } catch (error) {
             res.status(404).send(error)
         }
