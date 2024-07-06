@@ -70,7 +70,8 @@ const specs = swaggerJSDoc(swaggerOptions)
 app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 // Middleware
-app.use(express.static(`${__dirname}/public`));   
+app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(`${__dirname}/public`));   
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(addLoger)
